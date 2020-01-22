@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const giftController = require("../../controller/giftsdb")
+const giftController = require("../../controllers/giftsdb")
 
 router.route("/").get(giftController.findAll).post(giftController.create)
 

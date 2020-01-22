@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const groupController = require("../../controller/groupsdb")
+const groupController = require("../../controllers/groupsdb")
 
 router.route("/").get(groupController.findAll).post(groupController.create)
 
