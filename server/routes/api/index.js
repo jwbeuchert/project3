@@ -1,9 +1,9 @@
 const router = require("express").Router()
-const groupRoutes = require("./groupRoutes")
+const listRoutes = require("./listRoutes")
 const giftRoutes = require("./giftRoutes")
 const userRoutes = require("./userRoutes")
 
-router.use("/group", groupRoutes)
+router.use("/list", listRoutes)
 router.use("/gift", giftRoutes)
 router.use("/user", userRoutes)
 
