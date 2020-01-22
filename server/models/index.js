@@ -1,6 +1,6 @@
 module.exports = {
     Gift: require("./Gift"),
     User: require("./User"),
-    Group: require("./Group"),
+    List: require("./List"),
     Chat: require("./Chat")
 }
