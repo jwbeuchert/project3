@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import Nav from "./Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
+import Header from "./components/Header"
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <Header />
         <Nav />
         <div className="body">
           <Route
