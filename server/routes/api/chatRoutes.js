@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const chatsController = require("../../controller/chatsdb")
+const chatsController = require("../../controllers/chatsdb")
 
 router.route("/").get(chatsController.findAll).post(chatsController.create)
 
