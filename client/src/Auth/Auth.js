@@ -46,4 +46,10 @@ export default class Auth {
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
   };
+
+  // Verify is authenticated
+  isAuthenticated() {
+    const expiresAt = JSON.parse(localStorage.getItem("expires_at"));
+    return new Date().getTime() < expiresAt;
+  }
 }

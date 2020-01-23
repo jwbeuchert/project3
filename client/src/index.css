@@ -9,6 +9,10 @@ body {
   margin: 15px;
 }
 
+#LoggedIn {
+  color: black;
+}
+
 #pic1,
 #pic2,
 #pic3 {

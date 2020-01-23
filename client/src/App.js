@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Home from "./Home";
+import Profile from "./Profile";
 import ManageGiftList from "./ManageGiftList";
 import GiftGiverList from "./GiftGiverList";
 import Nav from "./Nav";
@@ -29,6 +30,10 @@ class App extends Component {
           <Route
             path="/callback"
             render={props => <Callback auth={this.auth} {...props} />}
+          />
+          <Route
+            path="/profile"
+            render={props => <Profile auth={this.auth} {...props} />}
           />
           <Route
             path="/mngList"
