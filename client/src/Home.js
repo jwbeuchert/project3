@@ -7,7 +7,6 @@ class Home extends Component {
   render() {
     return (
       <>
-        {/* <div> */}
         <div>
           <button onClick={this.props.auth.login}>Log In</button>
         </div>
@@ -33,7 +32,6 @@ class Home extends Component {
             <h1>Wedding Wish list</h1>
           </div>
         </div>
-        {/* </div> */}
       </>
     );
   }
