@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 
-class Profile extends Component {
+class ManageGiftList extends Component {
   render() {
-    return <h1>Profile</h1>;
+    return (
+      <div>
+        <h1>Gift List</h1>
+      </div>
+    );
   }
 }
 
-export default Profile;
+export default ManageGiftList;
