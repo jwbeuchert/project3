@@ -10,7 +10,10 @@ class Nav extends Component {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/mngList">Manage Gift List</Link>
+          </li>
+          <li>
+            <Link to="/mngGivers">Gift Giver List</Link>
           </li>
         </ul>
       </nav>
