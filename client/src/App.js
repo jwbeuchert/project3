@@ -5,6 +5,8 @@ import Profile from "./Profile";
 import Nav from "./Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
+import Gift from "./components/gift";
+import Chat from "./components/chat";
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +28,8 @@ class App extends Component {
             render={props => <Callback auth={this.auth} {...props} />}
           />
           <Route path="/profile" component={Profile} />
+          <Gift/>
+          <Chat/>
         </div>
       </>
     );
