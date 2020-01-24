@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Home from "./Home";
+import Profile from "./Profile";
 import ManageGiftList from "./ManageGiftList";
 import GiftGiverList from "./GiftGiverList";
 import Nav from "./Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
-import Header from "./components/Header"
+import Header from "./components/Header";
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class App extends Component {
     return (
       <>
         <Header />
-        <Nav />
+        <Nav auth={this.auth} />
         <div className="body">
           <Route
             path="/"
@@ -30,8 +31,18 @@ class App extends Component {
             path="/callback"
             render={props => <Callback auth={this.auth} {...props} />}
           />
-          <Route path="/ManageGiftList" component={ManageGiftList} />
-          <Route path="/GiftGiverList" component={GiftGiverList} />
+          <Route
+            path="/profile"
+            render={props => <Profile auth={this.auth} {...props} />}
+          />
+          <Route
+            path="/mngList"
+            render={props => <ManageGiftList auth={this.auth} {...props} />}
+          />
+          <Route
+            path="/mngGivers"
+            render={props => <GiftGiverList auth={this.auth} {...props} />}
+          />
         </div>
       </>
     );
