@@ -7,6 +7,8 @@ import GiftGiverList from "./GiftGiverList";
 import Nav from "./Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
+import Gift from "./components/gift";
+import Chat from "./components/chat";
 import Header from "./components/Header";
 
 class App extends Component {
@@ -31,6 +33,7 @@ class App extends Component {
             path="/callback"
             render={props => <Callback auth={this.auth} {...props} />}
           />
+
           <Route
             path="/profile"
             render={props => <Profile auth={this.auth} {...props} />}
@@ -43,6 +46,7 @@ class App extends Component {
             path="/mngGivers"
             render={props => <GiftGiverList auth={this.auth} {...props} />}
           />
+
         </div>
       </>
     );
