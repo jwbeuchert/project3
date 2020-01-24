@@ -2,12 +2,17 @@ const db = require("../models")
 
 module.exports = {
     findAll: function (req, res) {
-        db.Chat.find(req.query).then(dbChats => res.json(dbChats)).catch(err => res.status(422).json(err))
+        db.Chat.find(req.query)
+        .then(dbChats => {
+            res.json(dbChats)
+            console.log(dbChats)
+        }).catch(err => res.status(422).json(err))
     },
     findById: function (req, res) {
         db.Chat.findById(req.params.id).then(dbChat => res.json(dbChat)).catch(err => res.status(422).json(err))
     },
     create: function (req, res) {
+        console.log(req.body)
         db.Chat.create(req.body).then(dbChat => res.json(dbChat))
     },
     update: function (req, res) {
