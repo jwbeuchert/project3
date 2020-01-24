@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <>
         <Header />
-        <Nav />
+        <Nav auth={this.auth} />
         <div className="body">
           <Route
             path="/"
