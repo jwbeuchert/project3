@@ -1,0 +1,15 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #80b5ce;
+}
+
+.title {
+    font-size: 50px;
+    padding: 20px;
+}
+
+.login-status {
+    align-self: flex-end;
+    padding: 20px
+}
