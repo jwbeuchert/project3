@@ -23,6 +23,7 @@ class App extends Component {
       <>
         <Header />
         <Nav auth={this.auth} />
+        <Gift />
         <div className="body">
           <Route
             path="/"
