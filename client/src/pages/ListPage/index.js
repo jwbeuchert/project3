@@ -7,7 +7,7 @@ import "./styles.css"
 
 const ListPage = props => {
   const [user, setUser] = useState(null);
-  const userId = "5e2b6805dc115962947de9b1";
+  const userId = "5e2c67ad71d4cc3c202d7318";
 
   useEffect(() => getUser(), []);
 
@@ -26,17 +26,26 @@ const ListPage = props => {
     });
   };
 
+  const deleteList = (e, listid) => {
+    e.preventDefault()
+    console.log(listid)
+    axios.delete("/api/list/" + listid + "/" + user._id).then(res => {
+      console.log("List deleted")
+      getUser()
+    })
+  }
+
   return (
     <div className="list-page-body">
       <h1>My Lists</h1>
       <ListForm createList={createList} />
       <div className="lists-section">
         <h5>List of Gift Lists</h5>
-        <div class="list-container">
+        <div className="list-container">
       {user && user.lists.length > 0 ? (
-        user.lists.map(list => <List key={list._id} listname={list.name} />)
+        user.lists.map(list => <List key={list._id} list={list} deleteList={deleteList} noList={false} />)
       ) : (
-        <List key="nolist" listname="No lists to display." />
+        <List key="nolist" list={{name: "No lists to display."}} noList={true} />
       )}
       </div>
       </div>
