@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 // Alias BrowserRouter as Router
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Firebase, { FirebaseContext } from './components/Firebase';
 
 // Wrap app with Router component and declare single route that always renders the App component
 ReactDOM.render(
