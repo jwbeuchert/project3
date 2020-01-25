@@ -5,6 +5,8 @@ export default class Auth {
   constructor(history) {
     // Pass in React Router History
     this.history = history;
+    // Initialize instance variable
+    this.userProfile = null;
     // Instantiate auth0 WebAuth
     this.auth0 = new auth0.WebAuth({
       // Declare values
@@ -57,9 +59,26 @@ export default class Auth {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
+    this.userProfile = null;
     this.auth0.logout({
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
       returnTo: "http://localhost:3000"
+    });
+  };
+
+  getAccessToken = () => {
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      throw new Error("No access token found.");
+    }
+    return accessToken;
+  };
+
+  getProfile = cb => {
+    if (this.userProfile) return cb(this.userProfile);
+    this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
+      if (profile) this.userProfile = profile;
+      cb(profile, err);
     });
   };
 }

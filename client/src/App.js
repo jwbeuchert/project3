@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import ManageGiftList from "./ManageGiftList";
@@ -36,7 +36,13 @@ class App extends Component {
 
           <Route
             path="/profile"
-            render={props => <Profile auth={this.auth} {...props} />}
+            render={props =>
+              this.auth.isAuthenticated() ? (
+                <Profile auth={this.auth} {...props} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           />
           <Route
             path="/mngList"
@@ -46,8 +52,6 @@ class App extends Component {
             path="/mngGivers"
             render={props => <GiftGiverList auth={this.auth} {...props} />}
           />
-
-
         </div>
       </>
     );
