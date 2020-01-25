@@ -9,7 +9,7 @@ const userSchema = new Schema({
     dateAdded: { type: Date, default: Date.now },
     chats: [{ type: Schema.Types.ObjectId, ref: 'Chat'}],
     lists: [{ type: Schema.Types.ObjectId, ref: 'List'}],
-    gifts: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+    gifts: [{ type: Schema.Types.ObjectId, ref: 'Gift'}],
     gifters: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
