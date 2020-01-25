@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Xmas from "../src/components/Images/mistletoe.jpg";
 import Birthday from "../src/components/Images/birthday.jpeg";
 import Wedding from "../src/components/Images/rings.jpeg";
+import Chat from "../src/components/chat";
 
 class Home extends Component {
   render() {
