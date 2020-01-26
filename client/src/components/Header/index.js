@@ -7,9 +7,6 @@ function Header() {
             <div className="title">
                 Gift Together
             </div>
-            <div className="login-status">
-                <a href="#">login status</a>
-            </div>
         </header>
     )
 }

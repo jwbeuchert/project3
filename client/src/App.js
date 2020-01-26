@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
-import ManageGiftList from "./ManageGiftList";
+import ListPage from "./pages/ListPage";
 import GiftGiverList from "./GiftGiverList";
+import GiveGifts from "./pages/GiveGifts";
 import Nav from "./Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
-import Gift from "./components/gift";
-import Chat from "./components/chat";
 import Header from "./components/Header";
 
 class App extends Component {
@@ -45,13 +44,14 @@ class App extends Component {
             }
           />
           <Route
-            path="/mngList"
-            render={props => <ManageGiftList auth={this.auth} {...props} />}
+            path="/lists"
+            render={props => <ListPage auth={this.auth} {...props} />}
           />
           <Route
             path="/mngGivers"
             render={props => <GiftGiverList auth={this.auth} {...props} />}
           />
+          <Route path="/give" render={props => <GiveGifts />} />
         </div>
       </>
     );
