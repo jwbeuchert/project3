@@ -24,18 +24,24 @@ class App extends Component {
 
   componentDidMount() {
     console.log("did mount");
-    console.log(this.auth.isAuthenticated());
-    console.log(localStorage.getItem("access_token"));
+    setTimeout(() => {
     if (this.auth.isAuthenticated()) {
-      this.auth.getProfile((profile, error) => {
-        console.log(profile)
-        if (!error) {
-          axios.post("/api/user", 
-          { email: profile.email })
-          .then(dbUser => this.setState({user: dbUser.data}))
-        }
-      });
+      this.getDBUserInfo()
     }
+    }, 500)
+  }
+
+  getDBUserInfo() {
+    this.auth.getProfile((profile, error) => {
+      console.log(this.auth.isAuthenticated());
+      console.log(localStorage.getItem("access_token"));
+      console.log(profile)
+      if (!error) {
+        axios.post("/api/user", 
+        { email: profile.email })
+        .then(dbUser => this.setState({user: dbUser.data}))
+      }
+    });
   }
 
   render() {
