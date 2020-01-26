@@ -4,12 +4,12 @@ const ListForm = (props) => {
   const [listname, setListname] = useState("");
 
   return (
-    <form className="list-form">
+    <form className="sub-form">
         <h5 className="sub-header">Create a New List</h5>
       <div className="form-group">
         <input
           type="text"
-          className="form-control"
+          className="form-control form-input"
           id="list-name-input"
           placeholder="Enter a new list name"
           value={listname}
