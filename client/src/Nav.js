@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, useReducer } from "react";
 import { Link } from "react-router-dom";
 
-class Nav extends Component {
-  render() {
-    const { isAuthenticated, login, logout, user } = this.props.auth;
-    return (
-      <nav>
+const Nav = props => {
+  console.log(`NAV: ${props.user}`)
+  return (
+    <nav>
+      {!props.auth.isAuthenticated() ? (
+        <></>
+      ) : (
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -22,13 +24,13 @@ class Nav extends Component {
           <li>
             <Link to="/give">Give Gifts</Link>
           </li>
-          <button onClick={isAuthenticated() ? logout : login}>
-            {isAuthenticated() ? "Log Out" : "Log In"}
+          <button className="btn btn-primary" onClick={() => props.auth.logout()}>
+            {"Log Out"}
           </button>
         </ul>
-      </nav>
-    );
-  }
-}
+      )}
+    </nav>
+  );
+};
 
 export default Nav;

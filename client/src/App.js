@@ -48,6 +48,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <Header />
+        <Nav auth={this.auth} user={this.state.user}/>
         <Route
           path="/"
           exact
@@ -56,7 +57,6 @@ class App extends Component {
               <Login auth={this.auth} />
             ) : (
               <>
-                <Nav auth={this.auth} />
                 <Home auth={this.auth} {...props} />
               </>
             )
@@ -74,7 +74,7 @@ class App extends Component {
         />
         <Route
           path="/lists"
-          render={props => <ListPage auth={this.auth} {...props} />}
+          render={props => <ListPage user={this.state.user} />}
         />
         <Route
           path="/mngGivers"
@@ -82,7 +82,7 @@ class App extends Component {
         />
         <Route
           path="/give"
-          render={props => <GiveGifts auth={this.auth} {...props} />}
+          render={props => <GiveGifts user={this.state.user} />}
         />
         <Route
           path="/login"

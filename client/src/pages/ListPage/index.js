@@ -8,12 +8,11 @@ import "./styles.css"
 
 const ListPage = props => {
   const [user, setUser] = useState(null);
-  const currentUserId = "5e2cd1091aeaaf862c991b6d";
 
   useEffect(() => getUser(), []);
 
   const getUser = () => {
-    axios.get("/api/user/" + currentUserId).then(dbUser => {
+    axios.get("/api/user/" + props.user._id).then(dbUser => {
       setUser(dbUser.data);
     });
   };
@@ -21,7 +20,7 @@ const ListPage = props => {
   const createList = (e, listname) => {
     e.preventDefault();
     console.log(listname);
-    axios.post("/api/list/" + currentUserId, { name: listname }).then(res => {
+    axios.post("/api/list/" + props.user._id, { name: listname }).then(res => {
       console.log("List added");
       getUser();
     });
@@ -30,7 +29,7 @@ const ListPage = props => {
   const deleteList = (e, listid) => {
     e.preventDefault()
     console.log(listid)
-    axios.delete("/api/list/" + listid + "/" + user._id).then(res => {
+    axios.delete("/api/list/" + listid + "/" + props.user._id).then(res => {
       console.log("List deleted")
       getUser()
     })
