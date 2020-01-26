@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import ListPage from "./pages/ListPage";
@@ -35,7 +35,13 @@ class App extends Component {
 
           <Route
             path="/profile"
-            render={props => <Profile auth={this.auth} {...props} />}
+            render={props =>
+              this.auth.isAuthenticated() ? (
+                <Profile auth={this.auth} {...props} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           />
           <Route
             path="/lists"
