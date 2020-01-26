@@ -5,7 +5,7 @@ const ListForm = (props) => {
 
   return (
     <form className="list-form">
-        <h5>Create a New List</h5>
+        <h5 className="sub-header">Create a New List</h5>
       <div className="form-group">
         <input
           type="text"
