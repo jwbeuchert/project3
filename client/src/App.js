@@ -4,6 +4,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 import ListPage from "./pages/ListPage";
 import GiftGiverList from "./GiftGiverList";
+import GiveGifts from "./pages/GiveGifts";
 import Nav from "./Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
@@ -37,15 +38,14 @@ class App extends Component {
             render={props => <Profile auth={this.auth} {...props} />}
           />
           <Route
-            path="/mngList"
+            path="/lists"
             render={props => <ListPage auth={this.auth} {...props} />}
           />
           <Route
             path="/mngGivers"
             render={props => <GiftGiverList auth={this.auth} {...props} />}
           />
-
-
+          <Route path="/give" render={props => <GiveGifts />} />
         </div>
       </>
     );

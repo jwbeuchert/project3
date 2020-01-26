@@ -2,25 +2,26 @@ import React from "react";
 import { useState, useEffect } from "react";
 import List from "../../components/List";
 import ListForm from "../../components/ListForm";
+import NoResultCard from "../../components/NoResultCard"
 import axios from "axios";
 import "./styles.css"
 
 const ListPage = props => {
   const [user, setUser] = useState(null);
-  const userId = "5e2c67ad71d4cc3c202d7318";
+  const currentUserId = "5e2cd1091aeaaf862c991b6d";
 
   useEffect(() => getUser(), []);
 
   const getUser = () => {
-    axios.get("/api/user/" + userId).then(user => {
-      setUser(user.data);
+    axios.get("/api/user/" + currentUserId).then(dbUser => {
+      setUser(dbUser.data);
     });
   };
 
   const createList = (e, listname) => {
     e.preventDefault();
     console.log(listname);
-    axios.post("/api/list/" + userId, { name: listname }).then(res => {
+    axios.post("/api/list/" + currentUserId, { name: listname }).then(res => {
       console.log("List added");
       getUser();
     });
@@ -45,7 +46,7 @@ const ListPage = props => {
       {user && user.lists.length > 0 ? (
         user.lists.map(list => <List key={list._id} list={list} deleteList={deleteList} noList={false} />)
       ) : (
-        <List key="nolist" list={{name: "No lists to display."}} noList={true} />
+        <NoResultCard type={"lists"} />
       )}
       </div>
       </div>
