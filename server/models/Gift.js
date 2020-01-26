@@ -8,8 +8,6 @@ const giftSchema = new Schema({
     cost: { type: Number },
     isGifted: { type: Boolean },
     dateAdded: { type: Date, default: Date.now },
-    owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    lists: [{ type: Schema.Types.ObjectId, ref: 'List' }],
 });
 
 const Gift = mongoose.model("Gift", giftSchema);
