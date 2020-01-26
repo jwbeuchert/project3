@@ -14,8 +14,7 @@ module.exports = {
   },
   create: function(req, res) {
     console.log(req.body)
-    db.User.findOne(req.body).then((user, err) => {
-      console.log("inside find one")
+    db.User.findOne(req.body).populate("lists").populate("giftees").then((user, err) => {
       console.log(`this is the err: ${err}`)
       console.log(`this is the user: ${user}`)
       if (!user) {

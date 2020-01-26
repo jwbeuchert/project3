@@ -8,7 +8,7 @@ import ListPage from "./pages/ListPage";
 import GiftGiverList from "./GiftGiverList";
 import GiveGifts from "./pages/GiveGifts";
 import Login from "./pages/Login";
-import Nav from "./Nav";
+import Nav from "./components/Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
 import Header from "./components/Header";
@@ -20,18 +20,20 @@ class App extends Component {
     super(props);
     this.auth = new Auth(history);
     this.state = { user: null };
+    this.getOrCreateDBUser = this.getOrCreateDBUser.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
   componentDidMount() {
     console.log("did mount");
     setTimeout(() => {
     if (this.auth.isAuthenticated()) {
-      this.getDBUserInfo()
+      this.getOrCreateDBUser()
     }
     }, 500)
   }
 
-  getDBUserInfo() {
+  getOrCreateDBUser() {
     this.auth.getProfile((profile, error) => {
       console.log(this.auth.isAuthenticated());
       console.log(localStorage.getItem("access_token"));
@@ -44,10 +46,17 @@ class App extends Component {
     });
   }
 
+  updateUserInfo() {
+    axios.post("/api/user", 
+    { email: this.state.user.email })
+    .then(dbUser => this.setState({user: dbUser.data}))
+  }
+
   render() {
     return (
       <Router history={history}>
         <Header />
+        <Nav auth={this.auth} user={this.state.user}/>
         <Route
           path="/"
           exact
@@ -56,7 +65,6 @@ class App extends Component {
               <Login auth={this.auth} />
             ) : (
               <>
-                <Nav auth={this.auth} />
                 <Home auth={this.auth} {...props} />
               </>
             )
@@ -66,7 +74,7 @@ class App extends Component {
           path="/profile"
           render={props =>
             this.auth.isAuthenticated() ? (
-              <Profile auth={this.auth} {...props} />
+              <Profile auth={this.auth} user={this.state.user} {...props} />
             ) : (
               <Redirect to="/" />
             )
@@ -74,7 +82,7 @@ class App extends Component {
         />
         <Route
           path="/lists"
-          render={props => <ListPage auth={this.auth} {...props} />}
+          render={props => <ListPage user={this.state.user} updateUserInfo={this.updateUserInfo} />}
         />
         <Route
           path="/mngGivers"
@@ -82,7 +90,7 @@ class App extends Component {
         />
         <Route
           path="/give"
-          render={props => <GiveGifts auth={this.auth} {...props} />}
+          render={props => <GiveGifts user={this.state.user} />}
         />
         <Route
           path="/login"

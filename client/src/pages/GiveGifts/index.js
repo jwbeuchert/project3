@@ -3,10 +3,11 @@ import axios from "axios";
 import NoResultCard from "../../components/NoResultCard";
 import User from "../../components/UserCard";
 
-const GifterPage = () => {
+const GifterPage = (props) => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(null);
-  const currentUserId = "5e2cd1091aeaaf862c991b6d";
+  console.log(props.user.email)
+  const currentUserId = props.user._id;
 
   const getUser = () => {
     axios
