@@ -3,13 +3,15 @@ import axios from "axios";
 import NoResultCard from "../../components/NoResultCard";
 import User from "../../components/UserCard";
 
-const GiftUser = () => {
+const GiftUser = (props) => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(null);
+  console.log(props.user.email)
+  const currentUserId = props.user._id;
 
   const getUser = () => {
     axios
-      .get("/api/user/" + {currentUserId})
+      .get("/api/user/" + currentUserId)
       .then(dbUser => {
           setUser(dbUser.data)
         });
