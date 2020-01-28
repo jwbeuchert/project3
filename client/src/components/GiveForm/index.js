@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import UserCard from "../UserCard"
+import UserCard from "../UserCard";
+import NoResultCard from "../NoResultCard";
 
 const GiveForm = props => {
   const [emailSearch, setEmailSearch] = useState("");
@@ -9,24 +10,50 @@ const GiveForm = props => {
 
   const searchForUserByEmail = e => {
     e.preventDefault();
-    axios
-      .post("/api/user/email", { email: emailSearch })
-      .then(dbuser => {
-          if (dbuser) {
-            setUserReturned(dbuser.data)
+    if (props.user.email === emailSearch) {
+      setUserReturned("self");
+    } else {
+      if (props.user.giftees.length > 0) {
+        let userExists = false;
+        props.user.giftees.forEach(giftee => {
+          if (giftee.email === emailSearch) {
+            userExists = true;
           }
-        })
+        });
+        if (userExists) {
+          return setUserReturned("exists");
+        } else {
+          getUserFromEmail();
+        }
+      } else {
+        getUserFromEmail();
+      }
+    }
+  };
+
+  const getUserFromEmail = () => {
+    axios.post("/api/user/email", { email: emailSearch }).then(dbuser => {
+      if (dbuser.data) {
+        console.log(`set to dbuser ${dbuser.data}`)
+        setUserReturned(dbuser.data);
+      } else {
+        console.log(`set to invalid`)
+        setUserReturned("invalid");
+      }
+    });
   };
 
   const addFriend = e => {
-      e.preventDefault()
-      axios.put("/api/user/" + props.user._id + "/" + userReturned._id)
-        .then(dbuser => {
-            console.log(dbuser.data)
-            setUserReturned(null)
-            props.updateUserInfo()
-        })
-  }
+    e.preventDefault();
+    axios
+      .put("/api/user/" + props.user._id + "/" + userReturned._id)
+      .then(dbuser => {
+        console.log(dbuser.data);
+        setUserReturned(null);
+        setEmailSearch("");
+        props.updateUserInfo();
+      });
+  };
 
   return (
     <div className="sub-form">
@@ -49,10 +76,20 @@ const GiveForm = props => {
           </button>
         </div>
       </form>
-      {userReturned ? 
-      ( <><UserCard user={userReturned} /> 
-        <button className="btn btn-success" onClick={e => addFriend(e)}>Add Friend</button></>
-      ): null}
+      {userReturned === "self" ? (
+        <NoResultCard noResults="You cannot add yourself!" />
+      ) : userReturned === "exists" ? (
+        <NoResultCard noResults="Friend is already in your list!" />
+      ) : userReturned === "invalid" ? (
+        <NoResultCard noResults="Email not found!" />
+      ) : userReturned ? (
+        <>
+          <UserCard user={userReturned} />
+          <button className="btn btn-success" onClick={e => addFriend(e)}>
+            Add Friend
+          </button>
+        </>
+      ) : null}
     </div>
   );
 };
