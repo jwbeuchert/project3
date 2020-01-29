@@ -28,7 +28,7 @@ class App extends Component {
   componentDidMount() {
     console.log("did mount");
     console.log(localStorage.getItem("access_token"));
-    console.log(`This app state user: ${this.state.user}`);
+    console.log(this.auth.userProfile ? `auth profile: ${this.auth.userProfile.email}` : null)
     setTimeout(() => {
       if (this.auth.isAuthenticated()) {
         this.getOrCreateDBUser();
@@ -49,7 +49,7 @@ class App extends Component {
           this.setState({ user: dbUser.data });
           console.log("DBCALL");
           console.log(localStorage.getItem("access_token"));
-          console.log(`This app state user: ${JSON.stringify(this.state.user.email)}`);
+          console.log(`This app state user: ${JSON.stringify(this.state.user)}`);
         });
     }
   }

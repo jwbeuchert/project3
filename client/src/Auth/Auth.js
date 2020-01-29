@@ -49,6 +49,7 @@ export default class Auth {
     localStorage.setItem("expires_at", expiresAt);
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) this.userProfile = profile;
+      console.log(`SET SESSION Token: ${authResult.accessToken}`)
     });
   };
 

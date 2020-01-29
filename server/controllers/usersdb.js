@@ -5,6 +5,7 @@ module.exports = {
     db.User.find()
       .populate("lists")
       .populate("giftees")
+      .populate("gifts")
       .then(dbUsers => res.json(dbUsers))
       .catch(err => res.status(422).json(err));
   },
