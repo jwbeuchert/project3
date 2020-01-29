@@ -8,6 +8,7 @@ export default class Auth {
     this.history = history;
     // Initialize instance variable
     this.userProfile = null;
+    this.authResult = null;
     // Instantiate auth0 WebAuth
     this.auth0 = new auth0.WebAuth({
       // Declare values
@@ -30,6 +31,7 @@ export default class Auth {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
+          this.authResult = authResult
           this.userProfile = authResult.idTokenPayload;
           axios
             .post("/api/user", { email: this.userProfile.email })
@@ -51,6 +53,7 @@ export default class Auth {
     );
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("id_token", authResult.idToken);
+    localStorage.setItem("userProfile", authResult.idTokenPayload);
     localStorage.setItem("expires_at", expiresAt);
     console.log(`SET SESSION Token: ${authResult.accessToken}`);
   };
@@ -81,10 +84,10 @@ export default class Auth {
   };
 
   getProfile = cb => {
-    if (this.userProfile) return cb(this.userProfile);
+    if (this.userProfile) return (this.userProfile);
     this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
       if (profile) this.userProfile = profile;
-      cb(profile, err);
+      console.log(`getProfile: ${JSON.stringify(this.userProfile, null, 2)}`)
     });
   };
 }

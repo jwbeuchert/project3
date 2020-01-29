@@ -1,34 +1,27 @@
 const db = require("../models");
 
 module.exports = {
+  // GET url example /api/user
   findAll: function(req, res) {
     db.User.find()
       .populate("lists")
-      .populate("giftees")
-      .populate("gifts")
+      .populate("friends")
       .then(dbUsers => res.json(dbUsers))
       .catch(err => res.status(422).json(err));
   },
+  // GET url example /api/user/:userId
   findById: function(req, res) {
     db.User.findById(req.params.id)
       .populate("lists")
-      .populate("giftees")
+      .populate("friends")
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   },
-  findOne: (req, res) => {
+  // POST url example /api/user
+  createOrFindOne: function(req, res) {
     db.User.findOne(req.body)
       .populate("lists")
-      .populate("giftees")
-      .then(user => {
-        res.json(user);
-      })
-      .catch(err => res.status(422).json(err));
-  },
-  create: function(req, res) {
-    db.User.findOne(req.body)
-      .populate("lists")
-      .populate("giftees")
+      .populate("friends")
       .then(user => {
         if (!user) {
           db.User.create(req.body).then(newUser => {
@@ -43,27 +36,17 @@ module.exports = {
         }
       });
   },
-  update: function(req, res) {
-    db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbUser => res.json(dbUser))
-      .catch(err => res.status(422).json(err));
-  },
-  remove: function(req, res) {
-    db.User.findById(req.params.id)
-      .then(dbUser => dbUser.remove())
-      .then(dbUser => res.json(dbUser))
-      .catch(err => res.status(422).json(err));
-  },
-  addGiftee: function(req, res) {
-    db.User.findById(req.params.gifteeid)
-      .then(dbGiftee =>
+  // PUT url example /api/user/:currentUserId/:friendId
+  addFriend: function(req, res) {
+    db.User.findById(req.params.friendId)
+      .then(dbFriend =>
         db.User.findOneAndUpdate(
-          { _id: req.params.gifterid },
-          { $push: { giftees: dbGiftee._id } },
+          { _id: req.params.currentUserId },
+          { $push: { friends: dbFriend._id } },
           { new: true }
         )
       )
-      .then(dbGifter => res.json(dbGifter))
+      .then(dbFriend => res.json(dbFriend))
       .catch(err => res.status(422).json(err));
   }
 };

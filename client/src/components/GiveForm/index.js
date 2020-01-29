@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import UserCard from "../UserCard";
@@ -13,10 +13,10 @@ const GiveForm = props => {
     if (props.user.email === emailSearch) {
       setUserReturned("self");
     } else {
-      if (props.user.giftees.length > 0) {
+      if (props.user.friends.length > 0) {
         let userExists = false;
-        props.user.giftees.forEach(giftee => {
-          if (giftee.email === emailSearch) {
+        props.user.friends.forEach(friend => {
+          if (friend.email === emailSearch) {
             userExists = true;
           }
         });
@@ -29,10 +29,11 @@ const GiveForm = props => {
         getUserFromEmail();
       }
     }
+    console.log(userReturned)
   };
 
   const getUserFromEmail = () => {
-    axios.post("/api/user/email", { email: emailSearch }).then(dbuser => {
+    axios.post("/api/user/", { email: emailSearch }).then(dbuser => {
       if (dbuser.data) {
         console.log(`set to dbuser ${dbuser.data}`)
         setUserReturned(dbuser.data);
@@ -77,11 +78,11 @@ const GiveForm = props => {
         </div>
       </form>
       {userReturned === "self" ? (
-        <NoResultCard noResults="You cannot add yourself!" />
+        <NoResultCard message="You cannot add yourself!" />
       ) : userReturned === "exists" ? (
-        <NoResultCard noResults="Friend is already in your list!" />
+        <NoResultCard message="Friend is already in your list!" />
       ) : userReturned === "invalid" ? (
-        <NoResultCard noResults="Email not found!" />
+        <NoResultCard message="Email not found!" />
       ) : userReturned ? (
         <>
           <UserCard user={userReturned} />
