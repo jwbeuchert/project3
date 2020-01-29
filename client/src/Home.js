@@ -108,6 +108,7 @@ class Home extends Component {
             <h1>In GiftFriend create 2 containers for gift and chat</h1>
           </div>
           </div>
+          <Chat />
       </>
     );
   }

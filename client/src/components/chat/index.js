@@ -1,19 +1,11 @@
-import React from "react";
+import React from 'react';
+import  { FirebaseContext } from '../Firebase';
 
-function Chat() {
-  return (
-    <div>
-      <form>
-        <div className="form-group">
-          <label for="exampleFormControlInput1"><h1>Chat</h1></label>
-          <input
-            type="chat"
-            className="form-control col-4"
-          ></input>
-        </div>
-      </form>
-    </div>
-  );
-}
-
+const Chat = () => (
+  <FirebaseContext.Consumer>
+    {firebase => {
+      return <div>I've access to Firebase and render something.</div>;
+    }}
+  </FirebaseContext.Consumer>
+);
 export default Chat;
