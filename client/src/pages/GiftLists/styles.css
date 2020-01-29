@@ -1,0 +1,16 @@
+.btn-form {
+    margin-top: 50px;
+}
+
+.del-list {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    font-family: 'Crushed', cursive;
+}
+
+.btn-danger {
+    font-size: 14px;
+}

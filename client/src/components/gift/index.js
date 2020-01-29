@@ -1,5 +1,6 @@
 import React from "react";
 
+<<<<<<< HEAD
 const Gift = (props) => {
   if (props.noGift) {
 
@@ -21,3 +22,10 @@ const Gift = (props) => {
   )
 }
 export default Gift
+=======
+function Gift() {
+  return <h1>Gift</h1>;
+}
+
+export default Gift;
+>>>>>>> 7f488016091581f523a895b7348ba5fad5051b38

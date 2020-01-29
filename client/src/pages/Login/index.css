@@ -1,0 +1,14 @@
+.login-container {
+    height: 250px;
+    margin: 25px;
+    background-color: #d2d2d2;
+    border-radius: 10px;
+}
+
+.login-btn {
+    margin: 20px;
+}
+
+.login-contents {
+    margin: 20px;
+}

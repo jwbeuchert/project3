@@ -1,23 +1,39 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
+import axios from "axios";
+import history from "./utils/history";
 import Home from "./Home";
 import Profile from "./Profile";
-import ManageGiftList from "./ManageGiftList";
+import GiftLists from "./pages/GiftLists";
 import GiftGiverList from "./GiftGiverList";
-import Nav from "./Nav";
+import GiveGifts from "./pages/GiveGifts";
+import Login from "./pages/Login";
+import Nav from "./components/Nav";
 import Auth from "./Auth/Auth";
 import Callback from "./Callback";
-import Gift from "./components/gift";
-import Chat from "./components/chat";
 import Header from "./components/Header";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
     // ES6 class constructors MUST call super if they are subclasses. Thus, you have to call super() as long as you have a constructor.
     // Call super(props) only if you want to access this.props inside the constructor. React automatically set it for you if you want to access it anywhere else. The effect of passing props when calling super() allows you to access this.props in the constructor:
     super(props);
-    this.auth = new Auth(this.props.history);
+    this.auth = new Auth(history);
+    this.state = { user: null, loaded: false };
+    this.getOrCreateDBUser = this.getOrCreateDBUser.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
   }
+
+  componentDidMount() {
+    console.log("did mount");
+    setTimeout(() => {
+      if (this.auth.isAuthenticated()) {
+        this.getOrCreateDBUser();
+      }
+    }, 500);
+  }
+<<<<<<< HEAD
   render() {
     return (
       <>
@@ -34,23 +50,92 @@ class App extends Component {
             path="/callback"
             render={props => <Callback auth={this.auth} {...props} />}
           />
+=======
+>>>>>>> 7f488016091581f523a895b7348ba5fad5051b38
 
-          <Route
-            path="/profile"
-            render={props => <Profile auth={this.auth} {...props} />}
-          />
-          <Route
-            path="/mngList"
-            render={props => <ManageGiftList auth={this.auth} {...props} />}
-          />
-          <Route
-            path="/mngGivers"
-            render={props => <GiftGiverList auth={this.auth} {...props} />}
-          />
+  getOrCreateDBUser() {
+    this.auth.getProfile((profile, error) => {
+      console.log(this.auth.isAuthenticated());
+      console.log(localStorage.getItem("access_token"));
+      console.log(profile);
+      if (!error) {
+        axios
+          .post("/api/user", { email: profile.email })
+          .then(dbUser => this.setState({ user: dbUser.data, loaded: true }));
+      }
+    });
+  }
 
+  updateUserInfo() {
+    axios
+      .post("/api/user", { email: this.state.user.email })
+      .then(dbUser => this.setState({ user: dbUser.data }));
+  }
 
-        </div>
-      </>
+  render() {
+    console.log("User: ", this.state.user);
+    return (
+      <div>
+        {this.state.loaded && (
+          <Router history={history}>
+            <Header />
+            <Nav auth={this.auth} user={this.state.user} />
+            <Route
+              path="/"
+              exact
+              render={props =>
+                !this.auth.isAuthenticated() ? (
+                  <Login auth={this.auth} />
+                ) : (
+                  <>
+                    <Home auth={this.auth} user={this.state.user} {...props} />
+                  </>
+                )
+              }
+            />
+            <Route
+              path="/profile"
+              render={props =>
+                this.auth.isAuthenticated() ? (
+                  <Profile auth={this.auth} user={this.state.user} {...props} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
+            />
+            <Route
+              path="/lists"
+              render={props => (
+                <GiftLists
+                  user={this.state.user}
+                  updateUserInfo={this.updateUserInfo}
+                />
+              )}
+            />
+            <Route
+              path="/give"
+              render={props => (
+                <GiveGifts
+                  user={this.state.user}
+                  updateUserInfo={this.updateUserInfo}
+                />
+              )}
+            />
+            {/* <Route
+          path="/mngGivers"
+          render={props => <GiftGiverList auth={this.auth} {...props} />}
+        /> */}
+            <Route
+              path="/login"
+              render={props => <Login auth={this.auth} {...props} />}
+            />
+            <Route
+              path="/callback"
+              render={props => <Callback auth={this.auth} {...props} />}
+            />
+          </Router>
+        )}
+      </div>
     );
   }
 }
