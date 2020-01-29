@@ -20,7 +20,8 @@ class App extends Component {
     // Call super(props) only if you want to access this.props inside the constructor. React automatically set it for you if you want to access it anywhere else. The effect of passing props when calling super() allows you to access this.props in the constructor:
     super(props);
     this.auth = new Auth(history);
-    this.state = { user: null };
+    this.state = { user: null, loaded: false };
+    this.getOrCreateDBUser = this.getOrCreateDBUser.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
@@ -53,6 +54,7 @@ class App extends Component {
   }
 
   render() {
+
     const { isAuthenticated } = this.auth;
     return (
       <Router history={history}>
