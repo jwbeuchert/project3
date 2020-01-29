@@ -1,10 +1,11 @@
 import React from "react"
 
+// pass in a string via the props named "message" to print to the screen
 const NoResultCard = (props) => {
     return (
-        <div className="card" style={{width: "18rem"}}>
+        <div className="card sub-card">
         <div className="card-body">
-          <h5 className="card-title">{`There are no ${props.type}.`}</h5>
+          <h5 className="card-title">{props.message}</h5>
         </div>
         </div>
     )

@@ -41,7 +41,7 @@ const GiftLists = props => {
               />
             ))
           ) : (
-            <NoResultCard type={"lists"} />
+            <NoResultCard message={"You have no lists."} />
           )}
         </div>
       </div>

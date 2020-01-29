@@ -20,61 +20,76 @@ class App extends Component {
     // Call super(props) only if you want to access this.props inside the constructor. React automatically set it for you if you want to access it anywhere else. The effect of passing props when calling super() allows you to access this.props in the constructor:
     super(props);
     this.auth = new Auth(history);
-    this.state = { user: null };
+    this.state = { user: null, loaded: false };
     this.getOrCreateDBUser = this.getOrCreateDBUser.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
   componentDidMount() {
     console.log("did mount");
-    setTimeout(() => {
-      if (this.auth.isAuthenticated()) {
-        this.getOrCreateDBUser();
-      }
-    }, 500);
-  }
-
-  getOrCreateDBUser() {
-    this.auth.getProfile((profile, error) => {
-      console.log(this.auth.isAuthenticated());
-      console.log(localStorage.getItem("access_token"));
-      console.log(profile);
-      if (!error) {
-        axios
-          .post("/api/user", { email: profile.email })
-          .then(dbUser => this.setState({ user: dbUser.data }));
-      }
-    });
-  }
+    console.log(`LOCAL STORAGE TOKEN: ${localStorage.getItem("access_token")}`);
+    if (this.auth.authResult) {
+      console.log(`AUTH STORAGE TOKEN: ${this.auth.authResult.accessToken}`);
+    } else {
+      console.log("no auth result");
+    }
+    console.log(
+      this.auth.userProfile
+        ? `DID MOUNT auth profile: ${this.auth.userProfile.email}`
+        : "no auth userProfile"
+    );
+      setTimeout(() => {
+        if (this.auth.isAuthenticated()) {
+          this.updateUserInfo();
+        }
+      }, 500);
+    }
 
   updateUserInfo() {
-    axios
-      .post("/api/user", { email: this.state.user.email })
-      .then(dbUser => this.setState({ user: dbUser.data }));
-  }
+    let userEmail = null;
+    if (this.auth.userProfile) {
+      userEmail = this.auth.userProfile.email
+    } else if (localStorage.getItem("userProfile")) {
+      userEmail = localStorage.getItem("userProfile").email
+    }
+      axios
+        .post("/api/user", { email: userEmail })
+        .then(dbUser => {
+          this.setState({ user: dbUser.data });
+          console.log("DBCALL");
+          console.log(localStorage.getItem("access_token"));
+          console.log(
+            `This app state user: ${JSON.stringify(this.state.user)}`
+          );
+        });
+    }
 
   render() {
+
+    const { isAuthenticated } = this.auth;
     return (
       <Router history={history}>
         <Header />
-        <Nav auth={this.auth} user={this.state.user} />
+        {isAuthenticated() ? (
+          <Nav auth={this.auth} user={this.state.user} />
+        ) : (
+          <></>
+        )}
         <Route
           path="/"
           exact
           render={props =>
-            !this.auth.isAuthenticated() ? (
+            !isAuthenticated() ? (
               <Login auth={this.auth} />
             ) : (
-              <>
-                <Home auth={this.auth} {...props} />
-              </>
+              <Home auth={this.auth} {...props} />
             )
           }
         />
         <Route
           path="/profile"
           render={props =>
-            this.auth.isAuthenticated() ? (
+            isAuthenticated() ? (
               <Profile auth={this.auth} user={this.state.user} {...props} />
             ) : (
               <Redirect to="/" />
