@@ -47,6 +47,9 @@ export default class Auth {
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
+    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+      if (profile) this.userProfile = profile;
+    });
   };
 
   // Verify is authenticated
