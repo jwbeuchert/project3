@@ -1,4 +1,5 @@
 import auth0 from "auth0-js";
+import axios from "axios";
 
 // Declare Auth class to handle authentication
 export default class Auth {
@@ -26,15 +27,20 @@ export default class Auth {
   };
 
   handleAuthentication = () => {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        this.history.push("/");
-      } else if (err) {
-        this.history.push("/");
-        alert(`Error: ${err.error}. Check console for more info`);
-        console.log(err);
-      }
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.userProfile = authResult.idTokenPayload;
+          axios
+            .post("/api/user", { email: this.userProfile.email })
+            .then(dbUser => {
+              this.setSession(authResult);
+              resolve();
+            });
+        } else if (err) {
+          reject(err);
+        }
+      });
     });
   };
 
@@ -43,14 +49,10 @@ export default class Auth {
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
-
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
-    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
-      if (profile) this.userProfile = profile;
-      console.log(`SET SESSION Token: ${authResult.accessToken}`)
-    });
+    console.log(`SET SESSION Token: ${authResult.accessToken}`);
   };
 
   // Verify is authenticated

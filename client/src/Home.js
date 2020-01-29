@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Xmas from "../src/components/Images/mistletoe.jpg";
-import Birthday from "../src/components/Images/birthday.jpeg";
-import Wedding from "../src/components/Images/rings.jpeg";
 
 const giftLinks = [
   {
@@ -54,9 +50,10 @@ class Home extends Component {
   };
 
   render() {
-    const { isAuthenticated, login } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
     return (
       <>
+        {isAuthenticated() ? <div>true</div> : <div>false</div>}
         <div>
           <button onClick={this.enterGiftItem}>Enter Gift Item</button>
           <form>

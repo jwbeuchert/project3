@@ -31,7 +31,13 @@ module.exports = {
       .populate("giftees")
       .then(user => {
         if (!user) {
-          db.User.create(req.body).then(dbUser => res.json(dbUser));
+          db.User.create(req.body).then(newUser => {
+            db.List.create({"name": "All Gifts"})
+              .then(newList => {
+                newUser.lists.push(newList._id)
+                return newUser.save()
+              }).then(res.json(newUser))
+          });
         } else {
           res.json(user);
         }
