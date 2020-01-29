@@ -20,7 +20,7 @@ class App extends Component {
     // Call super(props) only if you want to access this.props inside the constructor. React automatically set it for you if you want to access it anywhere else. The effect of passing props when calling super() allows you to access this.props in the constructor:
     super(props);
     this.auth = new Auth(history);
-    this.state = { user: null };
+    this.state = { user: null, loaded: false };
     this.getOrCreateDBUser = this.getOrCreateDBUser.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
   }
@@ -42,7 +42,7 @@ class App extends Component {
       if (!error) {
         axios
           .post("/api/user", { email: profile.email })
-          .then(dbUser => this.setState({ user: dbUser.data }));
+          .then(dbUser => this.setState({ user: dbUser.data, loaded: true }));
       }
     });
   }
@@ -54,64 +54,69 @@ class App extends Component {
   }
 
   render() {
+    console.log("User: ", this.state.user);
     return (
-      <Router history={history}>
-        <Header />
-        <Nav auth={this.auth} user={this.state.user} />
-        <Route
-          path="/"
-          exact
-          render={props =>
-            !this.auth.isAuthenticated() ? (
-              <Login auth={this.auth} />
-            ) : (
-              <>
-                <Home auth={this.auth} {...props} />
-              </>
-            )
-          }
-        />
-        <Route
-          path="/profile"
-          render={props =>
-            this.auth.isAuthenticated() ? (
-              <Profile auth={this.auth} user={this.state.user} {...props} />
-            ) : (
-              <Redirect to="/" />
-            )
-          }
-        />
-        <Route
-          path="/lists"
-          render={props => (
-            <GiftLists
-              user={this.state.user}
-              updateUserInfo={this.updateUserInfo}
+      <div>
+        {this.state.loaded && (
+          <Router history={history}>
+            <Header />
+            <Nav auth={this.auth} user={this.state.user} />
+            <Route
+              path="/"
+              exact
+              render={props =>
+                !this.auth.isAuthenticated() ? (
+                  <Login auth={this.auth} />
+                ) : (
+                  <>
+                    <Home auth={this.auth} user={this.state.user} {...props} />
+                  </>
+                )
+              }
             />
-          )}
-        />
-        <Route
-          path="/give"
-          render={props => (
-            <GiveGifts
-              user={this.state.user}
-              updateUserInfo={this.updateUserInfo}
+            <Route
+              path="/profile"
+              render={props =>
+                this.auth.isAuthenticated() ? (
+                  <Profile auth={this.auth} user={this.state.user} {...props} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
             />
-          )}
-        />
-        <Route
+            <Route
+              path="/lists"
+              render={props => (
+                <GiftLists
+                  user={this.state.user}
+                  updateUserInfo={this.updateUserInfo}
+                />
+              )}
+            />
+            <Route
+              path="/give"
+              render={props => (
+                <GiveGifts
+                  user={this.state.user}
+                  updateUserInfo={this.updateUserInfo}
+                />
+              )}
+            />
+            {/* <Route
           path="/mngGivers"
           render={props => <GiftGiverList auth={this.auth} {...props} />}
-        />
-        <Route
-          path="/login"
-          render={props => <Login auth={this.auth} {...props} />}
-        />
-        <Route
-          path="/callback"
-          render={props => <Callback auth={this.auth} {...props} />}
-        />
-      </Router>
+        /> */}
+            <Route
+              path="/login"
+              render={props => <Login auth={this.auth} {...props} />}
+            />
+            <Route
+              path="/callback"
+              render={props => <Callback auth={this.auth} {...props} />}
+            />
+          </Router>
+        )}
+      </div>
     );
   }
 }

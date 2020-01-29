@@ -16,9 +16,9 @@ const Nav = props => {
             <li>
               <Link to="/profile">Profile</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/mngGivers">Gift Giver List</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/lists">My Lists</Link>
             </li>
