@@ -27,96 +27,106 @@ class App extends Component {
 
   componentDidMount() {
     console.log("did mount");
-    setTimeout(() => {
-      if (this.auth.isAuthenticated()) {
-        this.getOrCreateDBUser();
-      }
-    }, 500);
-  }
-
-  getOrCreateDBUser() {
-    this.auth.getProfile((profile, error) => {
-      console.log(this.auth.isAuthenticated());
-      console.log(localStorage.getItem("access_token"));
-      console.log(profile);
-      if (!error) {
-        axios
-          .post("/api/user", { email: profile.email })
-          .then(dbUser => this.setState({ user: dbUser.data, loaded: true }));
-      }
-    });
-  }
+    console.log(`LOCAL STORAGE TOKEN: ${localStorage.getItem("access_token")}`);
+    if (this.auth.authResult) {
+      console.log(`AUTH STORAGE TOKEN: ${this.auth.authResult.accessToken}`);
+    } else {
+      console.log("no auth result");
+    }
+    console.log(
+      this.auth.userProfile
+        ? `DID MOUNT auth profile: ${this.auth.userProfile.email}`
+        : "no auth userProfile"
+    );
+      setTimeout(() => {
+        if (this.auth.isAuthenticated()) {
+          this.updateUserInfo();
+        }
+      }, 500);
+    }
 
   updateUserInfo() {
-    axios
-      .post("/api/user", { email: this.state.user.email })
-      .then(dbUser => this.setState({ user: dbUser.data }));
-  }
+    let userEmail = null;
+    if (this.auth.userProfile) {
+      userEmail = this.auth.userProfile.email
+    } else if (localStorage.getItem("userProfile")) {
+      userEmail = localStorage.getItem("userProfile").email
+    }
+      axios
+        .post("/api/user", { email: userEmail })
+        .then(dbUser => {
+          this.setState({ user: dbUser.data });
+          console.log("DBCALL");
+          console.log(localStorage.getItem("access_token"));
+          console.log(
+            `This app state user: ${JSON.stringify(this.state.user)}`
+          );
+        });
+    }
 
   render() {
-    console.log("User: ", this.state.user);
+
+    const { isAuthenticated } = this.auth;
     return (
-      <div>
-        {this.state.loaded && (
-          <Router history={history}>
-            <Header />
-            <Nav auth={this.auth} user={this.state.user} />
-            <Route
-              path="/"
-              exact
-              render={props =>
-                !this.auth.isAuthenticated() ? (
-                  <Login auth={this.auth} />
-                ) : (
-                  <>
-                    <Home auth={this.auth} user={this.state.user} {...props} />
-                  </>
-                )
-              }
+      <Router history={history}>
+        <Header />
+        {isAuthenticated() ? (
+          <Nav auth={this.auth} user={this.state.user} />
+        ) : (
+          <></>
+        )}
+        <Route
+          path="/"
+          exact
+          render={props =>
+            !isAuthenticated() ? (
+              <Login auth={this.auth} />
+            ) : (
+              <Home auth={this.auth} {...props} />
+            )
+          }
+        />
+        <Route
+          path="/profile"
+          render={props =>
+            isAuthenticated() ? (
+              <Profile auth={this.auth} user={this.state.user} {...props} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
+        <Route
+          path="/lists"
+          render={props => (
+            <GiftLists
+              user={this.state.user}
+              updateUserInfo={this.updateUserInfo}
             />
-            <Route
-              path="/profile"
-              render={props =>
-                this.auth.isAuthenticated() ? (
-                  <Profile auth={this.auth} user={this.state.user} {...props} />
-                ) : (
-                  <Redirect to="/" />
-                )
-              }
+          )}
+        />
+        <Route
+          path="/give"
+          render={props => (
+            <GiveGifts
+              user={this.state.user}
+              updateUserInfo={this.updateUserInfo}
             />
-            <Route
-              path="/lists"
-              render={props => (
-                <GiftLists
-                  user={this.state.user}
-                  updateUserInfo={this.updateUserInfo}
-                />
-              )}
-            />
-            <Route
-              path="/give"
-              render={props => (
-                <GiveGifts
-                  user={this.state.user}
-                  updateUserInfo={this.updateUserInfo}
-                />
-              )}
-            />
-            {/* <Route
+          )}
+        />
+        <Route
           path="/mngGivers"
           render={props => <GiftGiverList auth={this.auth} {...props} />}
-        /> */}
-            <Route
-              path="/login"
-              render={props => <Login auth={this.auth} {...props} />}
-            />
-            <Route
-              path="/callback"
-              render={props => <Callback auth={this.auth} {...props} />}
-            />
-          </Router>
-        )}
-      </div>
+        />
+        <Route
+          path="/login"
+          render={props => <Login auth={this.auth} {...props} />}
+        />
+        <Route
+          path="/callback"
+          render={props => <Callback auth={this.auth} {...props} />}
+        />
+      </Router>
     );
   }
 }

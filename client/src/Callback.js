@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 
 class Callback extends Component {
-  componentDidMount = () => {
+  async componentDidMount() {
     // Handle authentication if expected values are in the URL
     if (/access_token|id_token|error/.test(this.props.location.hash)) {
-      this.props.auth.handleAuthentication();
+      await this.props.auth.handleAuthentication();
+      this.props.history.replace("/")
     } else {
       throw new Error("Invalid callback URL.");
     }

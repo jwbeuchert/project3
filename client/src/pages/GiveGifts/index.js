@@ -12,12 +12,12 @@ const GiveGiftsPage = props => {
       <div className="sub-section">
         <h5 className="sub-header">List of Friends</h5>
         <div className="sub-container">
-          {props.user && props.user.giftees.length > 0 ? (
-            props.user.giftees.map(giftee => {
-              return <UserCard key={giftee._id} user={giftee} />;
+          {props.user && props.user.friends.length > 0 ? (
+            props.user.friends.map(friend => {
+              return <UserCard key={friend._id} user={friend} />;
             })
           ) : (
-            <NoResultCard key="none" type={"friends"} />
+            <NoResultCard key="none" message={"You haven't added any friends!"} />
           )}
         </div>
       </div>

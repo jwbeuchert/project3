@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
 const giftLinks = [
   {
     Image: ""
@@ -55,9 +56,10 @@ class Home extends Component {
   };
 
   render() {
-    const { isAuthenticated, login } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
     return (
       <>
+
         <div className="sub-page-body">
           <h1 className="sub-page-header">Add To List</h1>
           <div className="sub-section">
@@ -71,6 +73,7 @@ class Home extends Component {
                 onChange={this.handleChange}
               ></input>
             </form>
+
 
             <button onClick={this.enterGiftItem}>Enter Description</button>
             <form>
