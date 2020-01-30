@@ -7,6 +7,10 @@ module.exports = {
     db.User.find()
     .populate("lists")
     .populate("friends")
+    .populate({
+      path: "lists",
+      populate: { path: "gifts" }
+    })
     .then(dbUsers => res.json(dbUsers))
     .catch(err => res.status(422).json(err));
   },
@@ -16,6 +20,10 @@ module.exports = {
     db.User.findById(req.params.id)
     .populate("lists")
     .populate("friends")
+    .populate({
+      path: "lists",
+      populate: { path: "gifts" }
+    })
     .then(dbUser => res.json(dbUser))
     .catch(err => res.status(422).json(err));
   },
@@ -27,6 +35,10 @@ module.exports = {
     db.User.findOne({ email: param})
       .populate("lists")
       .populate("friends")
+      .populate({
+        path: "lists",
+        populate: { path: "gifts" }
+      })
       .then(dbuser => {
         if (dbuser) { 
           res.json(dbuser)
@@ -41,6 +53,10 @@ module.exports = {
     db.User.findOne(req.body)
       .populate("lists")
       .populate("friends")
+      .populate({
+        path: "lists",
+        populate: { path: "gifts" }
+      })
       .then(user => {
         if (!user) {
           db.User.create(req.body).then(newUser => {
@@ -62,6 +78,10 @@ module.exports = {
     db.User.findById(req.params.friendId)
       .populate("lists")
       .populate("friends")
+      .populate({
+        path: "lists",
+        populate: { path: "gifts" }
+      })
       .then(dbFriend => {
         return db.User.findOneAndUpdate(
           { _id: req.params.currentUserId },
