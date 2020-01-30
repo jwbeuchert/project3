@@ -12,6 +12,10 @@
     align-items: center;
 }
 
+.nav-items {
+    margin: 15px;
+}
+
 .btn {
     margin: 10px;
     font-size: 14px;
