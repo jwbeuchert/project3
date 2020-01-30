@@ -6,9 +6,8 @@ const giftSchema = new Schema({
   link: { type: String, required: true },
   description: { type: String },
   cost: { type: Number },
-  isGifted: { type: Boolean },
+  isGifted: { type: Boolean, default: false },
   dateAdded: { type: Date, default: Date.now },
-  userEmail: { type: String, required: true }
 });
 
 const Gift = mongoose.model("Gift", giftSchema);
