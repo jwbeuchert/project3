@@ -39,6 +39,8 @@ module.exports = {
   // PUT url example /api/user/:currentUserId/:friendId
   addFriend: function(req, res) {
     db.User.findById(req.params.friendId)
+      .populate("lists")
+      .populate("friends")
       .then(dbFriend =>
         db.User.findOneAndUpdate(
           { _id: req.params.currentUserId },
