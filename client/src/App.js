@@ -1,7 +1,9 @@
-import React, { Component } from "react";
-import { Router, Route, Redirect } from "react-router-dom";
+import React, { useEffect, useState, useMemo } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useAuth0 } from "./react-auth0-spa";
 import axios from "axios";
 import history from "./utils/history";
+import { UserContext } from "./utils/UserContext";
 import Home from "./Home";
 import Profile from "./Profile";
 import GiftLists from "./pages/GiftLists";
@@ -9,116 +11,47 @@ import GiftGiverList from "./GiftGiverList";
 import GiveGifts from "./pages/GiveGifts";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
-import Auth from "./Auth/Auth";
-import Callback from "./Callback";
 import Header from "./components/Header";
 import "./App.css";
 
-class App extends Component {
-  constructor(props) {
-    // ES6 class constructors MUST call super if they are subclasses. Thus, you have to call super() as long as you have a constructor.
-    // Call super(props) only if you want to access this.props inside the constructor. React automatically set it for you if you want to access it anywhere else. The effect of passing props when calling super() allows you to access this.props in the constructor:
-    super(props);
-    this.auth = new Auth(history);
-    this.state = { user: null, loaded: false };
-    this.getOrCreateDBUser = this.getOrCreateDBUser.bind(this);
-    this.updateUserInfo = this.updateUserInfo.bind(this);
-  }
+function App() {
+  const { loading, isAuthenticated, user } = useAuth0();
+  const [dbUser, setDbUser] = useState(null);
+  const providerUser = useMemo(() => ({ dbUser, setDbUser }), [
+    dbUser,
+    setDbUser
+  ]);
 
-  componentDidMount() {
-    console.log("did mount");
-    setTimeout(() => {
-      if (this.auth.isAuthenticated()) {
-        this.getOrCreateDBUser();
-      }
-    }, 500);
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      axios.post("/api/user", { email: user.email }).then(res => {
+        setDbUser(res.data);
+      });
+    }
+  }, [user]);
 
-  getOrCreateDBUser() {
-    this.auth.getProfile((profile, error) => {
-      console.log(this.auth.isAuthenticated());
-      console.log(localStorage.getItem("access_token"));
-      console.log(profile);
-      if (!error) {
-        axios
-          .post("/api/user", { email: profile.email })
-          .then(dbUser => this.setState({ user: dbUser.data, loaded: true }));
-      }
-    });
+  if (loading) {
+    return <div>Loading...</div>;
   }
-
-  updateUserInfo() {
-    axios
-      .post("/api/user", { email: this.state.user.email })
-      .then(dbUser => this.setState({ user: dbUser.data }));
-  }
-
-  render() {
-    console.log("User: ", this.state.user);
-    return (
-      <div>
-        {/* {this.state.loaded && ( */}
-        <Router history={history}>
-          <Header />
-          <Nav auth={this.auth} user={this.state.user} />
-          <Route
-            path="/"
-            exact
-            render={props =>
-              !this.auth.isAuthenticated() ? (
-                <Login auth={this.auth} />
-              ) : (
-                <>
-                  <Home auth={this.auth} user={this.state.user} {...props} />
-                </>
-              )
-            }
-          />
-          <Route
-            path="/profile"
-            render={props =>
-              this.auth.isAuthenticated() ? (
-                <Profile auth={this.auth} user={this.state.user} {...props} />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/lists"
-            render={props => (
-              <GiftLists
-                user={this.state.user}
-                updateUserInfo={this.updateUserInfo}
-              />
-            )}
-          />
-          <Route
-            path="/give"
-            render={props => (
-              <GiveGifts
-                user={this.state.user}
-                updateUserInfo={this.updateUserInfo}
-              />
-            )}
-          />
-          {/* <Route
-          path="/mngGivers"
-          render={props => <GiftGiverList auth={this.auth} {...props} />}
-        /> */}
-          <Route
-            path="/login"
-            render={props => <Login auth={this.auth} {...props} />}
-          />
-          <Route
-            path="/callback"
-            render={props => <Callback auth={this.auth} {...props} />}
-          />
-        </Router>
-        ){/* } */}
-      </div>
-    );
-  }
+  return (
+    <Router history={history}>
+      <Header />
+      <Nav />
+      <Switch>
+        <UserContext.Provider value={providerUser}>
+          {isAuthenticated && (
+            <>
+              <Route path="/" exact component={Home} />
+              <Route path="/home" exact component={Home} />
+              <Route path="/profile" exact component={Profile} />
+              <Route path="/give" exact component={GiveGifts} />
+              <Route path="/lists" exact component={GiftLists} />
+            </>
+          )}
+        </UserContext.Provider>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;

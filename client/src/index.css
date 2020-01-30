@@ -32,25 +32,13 @@ ul.unstyled {
   padding: 0;
 }
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav li {
-  float: left;
-  display: block;
-  padding: 14px 16px;
-}
-
-nav li a {
+nav a {
   color: white;
   text-align: center;
   text-decoration: none;
 }
 
-nav li a:hover {
+nav a:hover {
   background-color: #d9390d;
 }
 
