@@ -8,8 +8,7 @@ const userSchema = new Schema({
     lastName: { type: String },
     dateAdded: { type: Date, default: Date.now },
     lists: [{ type: Schema.Types.ObjectId, ref: 'List'}],
-    gifts: [{ type: Schema.Types.ObjectId, ref: 'Gift'}],
-    giftees: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 const User = mongoose.model("User", userSchema);
