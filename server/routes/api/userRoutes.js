@@ -1,8 +1,8 @@
 const router = require("express").Router()
 const userController = require("../../controllers/usersdb")
 
-router.route("/").get(userController.findAll).post(userController.create)
-router.route("/:gifterid/:gifteeid").put(userController.addGiftee)
-router.route("/email").post(userController.findOne)
-router.route("/:id").get(userController.findById).put(userController.update).delete(userController.remove)
+router.route("/").get(userController.findAll).post(userController.createOrFindOne)
+router.route("/email").get(userController.findOneByEmail)
+router.route("/:currentUserId/:friendId").put(userController.addFriend)
+router.route("/:id").get(userController.findById)
 module.exports = router;

@@ -1,117 +1,83 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Xmas from "../src/components/Images/mistletoe.jpg";
-import Birthday from "../src/components/Images/birthday.jpeg";
-import Wedding from "../src/components/Images/rings.jpeg";
-import Chat from "../src/components/chat";
+import React, { useState, useContext } from "react";
+import { UserContext } from "./utils/UserContext"
+import axios from "axios";
 
 const giftLinks = [
   {
-    link: "abc"
+    Image: ""
   },
   {
-    link: "123"
+    link: ""
   },
   {
-    link: "c2a"
+    description: ""
   }
 ];
 
-class Home extends Component {
-  state = {
-    link: "",
-    description: "",
-    giftList: []
-  };
+const Home = () => {
+  const { dbUser, setDbUser } = useContext(UserContext);
+  const [gift, setGift] = useState({ link: "", description: "" });
 
-  componentDidMount = () => {
-    // API request
-    // axios.get
-    // .then.response
-    // followed by
-    this.setState({
-      giftList: giftLinks
-    });
-  };
 
-  handleChange = event => {
-    this.setState({
+  const handleChange = event => {
+    setGift({
       [event.target.name]: event.target.value
     });
   };
 
-  enterGiftItem = () => {
-    const newItem = {
-      link: this.state.link,
-      description: this.state.description
-    };
-    console.log(newItem);
-    // put axios post data
-    const newList = this.state.giftList;
-    newList.push(newItem);
-    this.setState({
-      giftList: newList
-    });
+  const enterGiftItem = () => {
+    // axios.post("/api/gift", gift).then(res => {
+    //   console.log(res);
+    // });
   };
 
-  render() {
-    const { isAuthenticated, login } = this.props.auth;
-    return (
-      <>
-        <div>
-          <button onClick={this.enterGiftItem}>Enter Gift Item</button>
+  return (
+    <>
+  <div>{dbUser && dbUser._id}</div>
+      <div className="sub-page-body">
+        <h1 className="sub-page-header">Add To List</h1>
+        <div className="sub-section">
+          <button onClick={enterGiftItem}>Enter Gift Link</button>
           <form>
             <input
+              className="form-input2"
               id="giftItems"
               name="link"
-              value={this.state.link}
-              onChange={this.handleChange}
+              value={gift.link}
+              onChange={handleChange}
             ></input>
+          </form>
 
-            <button onClick={this.enterGiftItem}>Enter Description</button>
+          <button onClick={enterGiftItem}>Enter Description</button>
+          <form>
             <input
+              className="form-input2"
               id="giftDescription"
               name="description"
-              value={this.state.description}
-              onChange={this.handleChange}
+              value={gift.description}
+              onChange={handleChange}
             ></input>
           </form>
         </div>
 
-        {this.state.giftList.map(item => {
-          return <div>{item.link}</div>;
-        })}
-
-        <div className="row">
-          <div className="col-md-12">
-            <h1>Will need to move this file to pages?</h1>
+        <div className="sub-section">
+          <h5 className="sub-header">Gift List</h5>
+          <div className="sub-container">
+            <div className="card" id="card1">
+              <div className="card-body">
+                {/* {.map(item => {
+                    return <div>{item.link}</div>;
+                  })}
+                  {this.state.giftList.map(item => {
+                    return <div>{item.description}</div>; */}
+                })}
+              </div>
+            </div>
           </div>
-          <div className="col-md-12">
-            <h1>Add to Nav Edit List Edit Friends See Friends</h1>
-          </div>
-          <div className="col-md-12">
-            <h1>
-              Set up an page in components for gift and description to populate
-              and edit?
-            </h1>
-          </div>
-          <div className="col-md-12">
-            <h1>Creat A Form for new gift</h1>
-          </div>
-          <div className="col-md-12">
-            <h1>Creat a Form for description</h1>
-          </div>
-          <div className="col-md-12">
-            <h1>Create a Container for gifts to populate</h1>
-          </div>
-          <div className="col-md-12">
-            <h1>In GiftFriend create 2 containers for gift and chat</h1>
-          </div>
-          </div>
-          <Chat />
-      </>
-    );
-  }
-}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Home;
