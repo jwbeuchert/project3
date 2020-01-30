@@ -1,58 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-
+import { UserContext } from "../../utils/UserContext";
 import UserCard from "../UserCard";
 import NoResultCard from "../NoResultCard";
 
-const GiveForm = props => {
+const GiveForm = () => {
   const [emailSearch, setEmailSearch] = useState("");
-  const [userReturned, setUserReturned] = useState(null);
+  const [friendReturned, setFriendReturned] = useState(null);
+  const { dbUser, setDbUser } = useContext(UserContext);
 
-  const searchForUserByEmail = e => {
+  const searchForFriendByEmail = e => {
     e.preventDefault();
-    if (props.user.email === emailSearch) {
-      setUserReturned("self");
+    if (dbUser.email === emailSearch) {
+      setFriendReturned("self");
     } else {
-      if (props.user.friends.length > 0) {
+      if (dbUser.friends.length > 0) {
         let userExists = false;
-        props.user.friends.forEach(friend => {
+        dbUser.friends.forEach(friend => {
           if (friend.email === emailSearch) {
             userExists = true;
           }
         });
         if (userExists) {
-          return setUserReturned("exists");
+          return setFriendReturned("exists");
         } else {
-          getUserFromEmail();
+          getFriendFromEmail();
         }
       } else {
-        getUserFromEmail();
+        getFriendFromEmail();
       }
     }
-    console.log(userReturned)
+    console.log(friendReturned);
   };
 
-  const getUserFromEmail = () => {
-    axios.post("/api/user/", { email: emailSearch }).then(dbuser => {
-      if (dbuser.data) {
-        console.log(`set to dbuser ${dbuser.data}`)
-        setUserReturned(dbuser.data);
-      } else {
-        console.log(`set to invalid`)
-        setUserReturned("invalid");
-      }
-    });
+  const getFriendFromEmail = () => {
+    axios
+      .get("/api/user/email/", { params: { email: emailSearch } })
+      .then(dbuser => {
+        if (dbuser.data) {
+          console.log(`set to dbuser ${dbuser.data}`);
+          setFriendReturned(dbuser.data);
+        } else {
+          console.log(`set to invalid`);
+          setFriendReturned("invalid");
+        }
+      });
   };
 
   const addFriend = e => {
     e.preventDefault();
     axios
-      .put("/api/user/" + props.user._id + "/" + userReturned._id)
+      .put("/api/user/" + dbUser._id + "/" + friendReturned._id)
       .then(dbuser => {
         console.log(dbuser.data);
-        setUserReturned(null);
+        setFriendReturned(null);
         setEmailSearch("");
-        props.updateUserInfo();
+        setDbUser(dbuser.data);
       });
   };
 
@@ -71,21 +74,21 @@ const GiveForm = props => {
           />
           <button
             className="btn btn-primary"
-            onClick={e => searchForUserByEmail(e)}
+            onClick={e => searchForFriendByEmail(e)}
           >
             Search
           </button>
         </div>
       </form>
-      {userReturned === "self" ? (
+      {friendReturned === "self" ? (
         <NoResultCard message="You cannot add yourself!" />
-      ) : userReturned === "exists" ? (
+      ) : friendReturned === "exists" ? (
         <NoResultCard message="Friend is already in your list!" />
-      ) : userReturned === "invalid" ? (
+      ) : friendReturned === "invalid" ? (
         <NoResultCard message="Email not found!" />
-      ) : userReturned ? (
+      ) : friendReturned ? (
         <>
-          <UserCard user={userReturned} />
+          <UserCard user={friendReturned} />
           <button className="btn btn-success" onClick={e => addFriend(e)}>
             Add Friend
           </button>

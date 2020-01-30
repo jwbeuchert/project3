@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.post("/api/user", { email: user.email }).then(res => {
+      axios.post("/api/user", { "email": user.email }).then(res => {
         setDbUser(res.data);
       });
     }
