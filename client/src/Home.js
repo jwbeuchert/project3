@@ -21,13 +21,12 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
-    // API request
-    console.log("Home props: ", this.props);
-    axios.get(`/api/gift?userEmail=${this.props.user.email}`).then(res => {
-      this.setState({
-        giftList: res.data
-      });
-    });
+    // console.log("Home props: ", this.props);
+    // axios.get(`/api/gift?userEmail=${this.props.user.email}`).then(res => {
+    //   this.setState({
+    //     giftList: res.data
+    //   });
+    // });
   };
 
   handleChange = event => {
@@ -61,7 +60,9 @@ class Home extends Component {
         <div className="sub-page-body">
           <h1 className="sub-page-header">Add To List</h1>
           <div className="sub-section">
-            <button onClick={this.enterGiftItem}>Enter Gift Link</button>
+            <h5>
+              Copy and paste the link (address bar) of the gift you want to add
+            </h5>
             <form>
               <input
                 className="form-input2"
@@ -72,7 +73,7 @@ class Home extends Component {
               ></input>
             </form>
 
-            <button onClick={this.enterGiftItem}>Enter Description</button>
+            <h5>Copy and paste the description if desired</h5>
             <form>
               <input
                 className="form-input2"
@@ -82,6 +83,8 @@ class Home extends Component {
                 onChange={this.handleChange}
               ></input>
             </form>
+
+            <button onClick={this.enterGiftItem}>Submit</button>
           </div>
 
           <div className="sub-section">

@@ -57,65 +57,65 @@ class App extends Component {
     console.log("User: ", this.state.user);
     return (
       <div>
-        {this.state.loaded && (
-          <Router history={history}>
-            <Header />
-            <Nav auth={this.auth} user={this.state.user} />
-            <Route
-              path="/"
-              exact
-              render={props =>
-                !this.auth.isAuthenticated() ? (
-                  <Login auth={this.auth} />
-                ) : (
-                  <>
-                    <Home auth={this.auth} user={this.state.user} {...props} />
-                  </>
-                )
-              }
-            />
-            <Route
-              path="/profile"
-              render={props =>
-                this.auth.isAuthenticated() ? (
-                  <Profile auth={this.auth} user={this.state.user} {...props} />
-                ) : (
-                  <Redirect to="/" />
-                )
-              }
-            />
-            <Route
-              path="/lists"
-              render={props => (
-                <GiftLists
-                  user={this.state.user}
-                  updateUserInfo={this.updateUserInfo}
-                />
-              )}
-            />
-            <Route
-              path="/give"
-              render={props => (
-                <GiveGifts
-                  user={this.state.user}
-                  updateUserInfo={this.updateUserInfo}
-                />
-              )}
-            />
-            {/* <Route
+        {/* {this.state.loaded && ( */}
+        <Router history={history}>
+          <Header />
+          <Nav auth={this.auth} user={this.state.user} />
+          <Route
+            path="/"
+            exact
+            render={props =>
+              !this.auth.isAuthenticated() ? (
+                <Login auth={this.auth} />
+              ) : (
+                <>
+                  <Home auth={this.auth} user={this.state.user} {...props} />
+                </>
+              )
+            }
+          />
+          <Route
+            path="/profile"
+            render={props =>
+              this.auth.isAuthenticated() ? (
+                <Profile auth={this.auth} user={this.state.user} {...props} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            path="/lists"
+            render={props => (
+              <GiftLists
+                user={this.state.user}
+                updateUserInfo={this.updateUserInfo}
+              />
+            )}
+          />
+          <Route
+            path="/give"
+            render={props => (
+              <GiveGifts
+                user={this.state.user}
+                updateUserInfo={this.updateUserInfo}
+              />
+            )}
+          />
+          {/* <Route
           path="/mngGivers"
           render={props => <GiftGiverList auth={this.auth} {...props} />}
         /> */}
-            <Route
-              path="/login"
-              render={props => <Login auth={this.auth} {...props} />}
-            />
-            <Route
-              path="/callback"
-              render={props => <Callback auth={this.auth} {...props} />}
-            />
-          </Router>
-        )}
+          <Route
+            path="/login"
+            render={props => <Login auth={this.auth} {...props} />}
+          />
+          <Route
+            path="/callback"
+            render={props => <Callback auth={this.auth} {...props} />}
+          />
+        </Router>
+        ){/* } */}
       </div>
     );
   }
