@@ -66,6 +66,7 @@ const Home = () => {
               value={giftLink}
               onChange={e => handleChange(e)}
             ></input>
+          </form>
             <input
               className="form-input2"
               id="description"
@@ -82,6 +83,7 @@ const Home = () => {
             ></input>
             <button onClick={e => enterGiftItem(e)}>Enter Gift Link</button>
           </form>
+          <button onClick={enterGiftItem}>Enter Gift Link</button>
         </div>
 
         <div className="sub-section">
@@ -89,7 +91,6 @@ const Home = () => {
           <div className="sub-container">
             <div className="card" id="card1">
               <div className="card-body">
-
               </div>
             </div>
           </div>
