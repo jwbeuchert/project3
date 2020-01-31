@@ -16,7 +16,12 @@ const giftLinks = [
 
 const Home = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
-  const [gift, setGift] = useState({ link: "", description: "" });
+  const [gift, setGift] = useState({
+    name: "",
+    link: "",
+    description: "",
+    cost: ""
+  });
 
   const handleChange = event => {
     setGift({
@@ -36,7 +41,9 @@ const Home = () => {
       <div className="sub-page-body">
         <h1 className="sub-page-header">Add To List</h1>
         <div className="sub-section">
-          <button onClick={enterGiftItem}>Enter Gift Link</button>
+          <h5>
+            Copy and paste the link (address bar) of the gift you want to add
+          </h5>
           <form>
             <input
               className="form-input2"
@@ -47,7 +54,7 @@ const Home = () => {
             ></input>
           </form>
 
-          <button onClick={enterGiftItem}>Enter Description</button>
+          <h5>Copy and paste the description if desired</h5>
           <form>
             <input
               className="form-input2"
@@ -57,6 +64,7 @@ const Home = () => {
               onChange={handleChange}
             ></input>
           </form>
+          <button onClick={enterGiftItem}>Enter Gift Link</button>
         </div>
 
         <div className="sub-section">
@@ -64,6 +72,10 @@ const Home = () => {
           <div className="sub-container">
             <div className="card" id="card1">
               <div className="card-body">
+                {dbUser &&
+                  dbUser.lists.map(list =>
+                    list.gifts.map(gift => <h1>{gift.name}</h1>)
+                  )}
                 {/* {.map(item => {
                     return <div>{item.link}</div>;
                   })}
