@@ -20,7 +20,6 @@ const Home = () => {
   const [giftDescription, setGiftDescription] = useState("");
   const [giftLink, setGiftLink] = useState("");
   const [giftCost, setGiftCost] = useState(0);
-  // const [giftObj, setGiftObj] = useState({})
 
   const handleChange = e => {
     
@@ -31,8 +30,6 @@ const Home = () => {
     } else if (e.target.name === "link") {
       setGiftLink(e.target.value);
     }
-
-    // setGiftObj({name: giftName, description: giftDescription, link: giftLink})
   };
 
   const enterGiftItem = e => {
@@ -66,7 +63,6 @@ const Home = () => {
               value={giftLink}
               onChange={e => handleChange(e)}
             ></input>
-          </form>
             <input
               className="form-input2"
               id="description"
@@ -83,7 +79,6 @@ const Home = () => {
             ></input>
             <button onClick={e => enterGiftItem(e)}>Enter Gift Link</button>
           </form>
-          <button onClick={enterGiftItem}>Enter Gift Link</button>
         </div>
 
         <div className="sub-section">

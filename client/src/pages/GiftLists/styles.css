@@ -14,3 +14,9 @@
 .btn-danger {
     font-size: 14px;
 }
+
+.font-awesome {
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+}
