@@ -5,16 +5,14 @@
 .sub-page-header {
   font-family: "Crushed", cursive;
   font-size: 40px;
-  background-color: #faffa5;
-  padding: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .sub-section {
   margin-top: 10px;
   padding: 20px;
   background-color: #f0f0dc;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .sub-container {
@@ -28,15 +26,13 @@
 }
 
 .sub-form {
-  margin-top: 20px;
-  padding: 20px;
   background-color: #f0f0dc;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .sub-card {
   margin: 20px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 15rem;
 }
 
