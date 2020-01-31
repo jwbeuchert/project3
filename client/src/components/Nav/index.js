@@ -1,44 +1,40 @@
-import React from "react";
-import { useAuth0 } from "../../react-auth0-spa";
+import React, { Component, useReducer } from "react";
 import { Link } from "react-router-dom";
-import Login from "../../pages/Login";
 import "./index.css";
 
-const Nav = () => {
-  const { isAuthenticated, logout, user } = useAuth0();
-
+const Nav = props => {
   return (
-    <div>
-      {!isAuthenticated ? (
-        <Login />
+    <nav className="nav-container">
+      {!props.auth.isAuthenticated() ? (
+        <></>
       ) : (
-        <nav className="nav-container">
-          <div>
-            <h3 className="userName">Welcome, {user.name}</h3>
-            <div className="nav-flex">
-              <div className="nav-items">
-                <Link to="/home">Home</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/profile">Profile</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/mngGivers">Gift Giver List</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/lists">My Lists</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/give">Give Gifts</Link>
-              </div>
-              <button className="btn btn-primary" onClick={() => logout()}>
-                Log Out
-              </button>
-            </div>
-          </div>
-        </nav>
+        <div className="nav-flex">
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            {/* <li>
+              <Link to="/mngGivers">Gift Giver List</Link>
+            </li> */}
+            <li>
+              <Link to="/lists">My Lists</Link>
+            </li>
+            <li>
+              <Link to="/give">Give Gifts</Link>
+            </li>
+          </ul>
+          <button
+            className="btn btn-primary"
+            onClick={() => props.auth.logout()}
+          >
+            {"Log Out"}
+          </button>
+        </div>
       )}
-    </div>
+    </nav>
   );
 };
 
