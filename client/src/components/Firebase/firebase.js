@@ -1,17 +1,16 @@
-import app from 'firebase/app';
+import app from "firebase";
 
-const config = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  };
+var config = {
+  apiKey: "AIzaSyDNmfzkDxKXOPi2B5YnYhNIOnC3JIOPsus",
+  authDomain: "gift-together.firebaseapp.com",
+  databaseURL: "https://gift-together.firebaseio.com",
+  projectId: "gift-together",
+  storageBucket: "gift-together.appspot.com",
+  messagingSenderId: "834835848957",
+  appId: "1:834835848957:web:6b2161247c2600e051a894"
+};
 
-  class Firebase {
-    constructor() {
-      app.initializeApp(config);
-    }
-  }
-  export default Firebase;
+app.initializeApp(config);
+
+export const auth = app.auth();
+export default app;

@@ -27,4 +27,4 @@ const GiveGiftsPage = () => {
   );
 };
 
-export default GifterPage;
+export default GiveGiftsPage;

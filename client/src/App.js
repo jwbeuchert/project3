@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
 import "./App.css";
+import firebase from './components/Firebase';
 
 function App() {
   const { loading, isAuthenticated, user } = useAuth0();
@@ -23,6 +24,9 @@ function App() {
   ]);
 
   useEffect(() => {
+    const rootRef = firebase.database().ref()
+    rootRef.on("value" , snap => (console.log(snap.val()) 
+    ))
     if (isAuthenticated) {
       axios.post("/api/user", { "email": user.email }).then(res => {
         setDbUser(res.data);
