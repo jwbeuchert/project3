@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import List from "../../components/List";
 import ListForm from "../../components/ListForm";
 import NoResultCard from "../../components/NoResultCard";
+import { UserContext } from "../../utils/UserContext";
 import axios from "axios";
 import "./styles.css";
 
-const GiftLists = props => {
+const GiftLists = () => {
+  const { dbUser, setDbUser } = useContext(UserContext);
+
   const createList = (e, listname) => {
     e.preventDefault();
     console.log(listname);
-    axios.post("/api/list/" + props.user._id, { name: listname }).then(res => {
+    axios.post("/api/list/" + dbUser._id, { name: listname }).then(res => {
       console.log("List added");
-      props.updateUserInfo();
+      console.log(res.data.lists[0]);
+      setDbUser(res.data);
     });
   };
 
   const deleteList = (e, listid) => {
     e.preventDefault();
     console.log(listid);
-    axios.delete("/api/list/" + listid + "/" + props.user._id).then(res => {
+    axios.delete("/api/list/" + listid + "/" + dbUser._id).then(res => {
       console.log("List deleted");
-      props.updateUserInfo();
+      setDbUser(res.data);
     });
   };
 
@@ -31,17 +35,12 @@ const GiftLists = props => {
       <div className="sub-section">
         <h5 className="sub-header">List of Gift Lists</h5>
         <div className="sub-container">
-          {props.user && props.user.lists.length > 0 ? (
-            props.user.lists.map(list => (
-              <List
-                key={list._id}
-                list={list}
-                deleteList={deleteList}
-                noList={false}
-              />
+          {dbUser && dbUser.lists.length > 0 ? (
+            dbUser.lists.map(list => (
+              <List key={list._id} list={list} deleteList={deleteList} />
             ))
           ) : (
-            <NoResultCard type={"lists"} />
+            <NoResultCard message={"You have no lists."} />
           )}
         </div>
       </div>

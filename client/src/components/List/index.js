@@ -1,16 +1,32 @@
-import React from "react"
+import React, { useState } from "react";
 
-const List = (props) => {
-    return (
-        <div className="card sub-card">
-        <div className="card-body">
-          <h5 className="card-title">{props.list.name}</h5>
-        </div>
-        <div className="del-list">
-        <button className="btn btn-danger btn-form" onClick={e => props.deleteList(e, props.list._id)}>Delete</button>
-        </div>
+const ListForm = props => {
+  const [listname, setListname] = useState("");
+
+  return (
+    <form className="sub-form">
+      <h5 className="sub-header">Create a New List</h5>
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control form-input"
+          id="list-name-input"
+          placeholder="Enter a new list name"
+          value={listname}
+          onChange={e => setListname(e.target.value)}
+        />
+        <button
+          className="btn btn-primary"
+          onClick={e => {
+            props.createList(e, listname);
+            setListname("");
+          }}
+        >
+          Add List
+        </button>
       </div>
-    )
-}
+    </form>
+  );
+};
 
-export default List
+export default ListForm;

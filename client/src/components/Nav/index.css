@@ -1,18 +1,22 @@
 .nav-container {
-    font-family: 'Crushed', cursive;
-    font-size: 25px;
-    display: block;
-    background-image: linear-gradient(to bottom right, #b7beff, black);
+  font-family: "Crushed", cursive;
+  font-size: 25px;
+  display: block;
+  background-image: linear-gradient(to bottom right, #b7beff, black);
 }
 
 .nav-flex {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-items {
+  margin: 15px;
 }
 
 .btn {
-    margin: 10px;
-    font-size: 14px;
+  margin: 10px;
+  font-size: 14px;
 }

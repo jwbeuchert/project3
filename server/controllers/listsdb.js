@@ -7,8 +7,8 @@ module.exports = {
     db.List.create(req.body)
       .then(dblist => {
         console.log("list created");
-        return db.User.findByIdAndUpdate(
-          req.params.userid,
+        return db.User.findOneAndUpdate(
+          { _id: req.params.userid },
           { $push: { lists: dblist._id } },
           { new: true }
         )
@@ -24,8 +24,8 @@ module.exports = {
     db.List.findByIdAndDelete(req.params.listid)
       .then(dblist => {
         console.log("list deleted");
-        return db.User.findByIdAndUpdate(
-          req.params.userid,
+        return db.User.findOneAndUpdate(
+          { _id: req.params.userid },
           { $pull: { lists: dblist._id } }
         )
           .populate("lists")
