@@ -7,29 +7,31 @@ module.exports = {
     db.List.create(req.body)
       .then(dblist => {
         console.log("list created");
-        return db.User.findOneAndUpdate(
-          { _id: req.params.userid },
+        return db.User.findByIdAndUpdate(
+          req.params.userid,
           { $push: { lists: dblist._id } },
           { new: true }
-        );
-      }).then(dbuser => res.json(dbuser))
+        )
+          .populate("lists")
+          .populate("friends");
+      })
+      .then(dbuser => res.json(dbuser))
       .catch(err => res.status(422).json(err));
   },
   // url example: /api/list/:listid/:userid/
   remove: function(req, res) {
-    console.log(`userid: ${req.params.userid} || listid: ${req.params.listid}`)
-    db.List.findById(req.params.listid)
-      .then(dbList => {
-        console.log(dbList)
-        dbList.remove()
-        return db.User.findById(req.params.userid)
-        .then(dbUser => {
-          console.log(`${dbUser} ----listid---- ${req.params.listid}`)
-          dbUser.lists.remove({ _id: req.params.listid })
-          dbUser.save()
-        })
+    console.log(`userid: ${req.params.userid} || listid: ${req.params.listid}`);
+    db.List.findByIdAndDelete(req.params.listid)
+      .then(dblist => {
+        console.log("list deleted");
+        return db.User.findByIdAndUpdate(
+          req.params.userid,
+          { $pull: { lists: dblist._id } }
+        )
+          .populate("lists")
+          .populate("friends");
       })
-      .then(dbList => res.json(dbList))
+      .then(dbuser => res.json(dbuser))
       .catch(err => res.status(422).json(err));
   }
 };
