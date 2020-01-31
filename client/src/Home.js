@@ -2,18 +2,6 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "./utils/UserContext";
 import axios from "axios";
 
-const giftLinks = [
-  {
-    Image: ""
-  },
-  {
-    link: ""
-  },
-  {
-    description: ""
-  }
-];
-
 const Home = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
   const [giftName, setGiftName] = useState("");
@@ -22,7 +10,6 @@ const Home = () => {
   const [giftCost, setGiftCost] = useState(0);
 
   const handleChange = e => {
-    
     if (e.target.name === "name") {
       setGiftName(e.target.value);
     } else if (e.target.name === "description") {
@@ -37,8 +24,8 @@ const Home = () => {
     let allGift = dbUser.lists.filter(el => el.name === "All Gifts");
     let allGiftId = allGift[0]._id;
     console.log(allGiftId);
-    let gift = { name: giftName, description: giftDescription, link: giftLink }
-    console.log(gift)
+    let gift = { name: giftName, description: giftDescription, link: giftLink };
+    console.log(gift);
 
     axios.post("/api/gift/" + allGiftId, gift).then(res => {
       console.log(res);
@@ -85,8 +72,7 @@ const Home = () => {
           <h5 className="sub-header">Gift List</h5>
           <div className="sub-container">
             <div className="card" id="card1">
-              <div className="card-body">
-              </div>
+              <div className="card-body"></div>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ const Nav = () => {
       ) : (
         <nav className="nav-container">
           <div>
-            <h3 className="userName">Welcome, {user.name}</h3>
+            Welcome, {user.name}!
             <div className="nav-flex">
               <div className="nav-items">
                 <Link to="/home">Home</Link>

@@ -3,60 +3,44 @@ const db = require("../models");
 module.exports = {
   // GET url example /api/user
   findAll: function(req, res) {
-    console.log("FIND ALL")
+    console.log("FIND ALL");
     db.User.find()
-    .populate("lists")
-    .populate("friends")
-    .populate({
-      path: "lists",
-      populate: { path: "gifts" }
-    })
-    .then(dbUsers => res.json(dbUsers))
-    .catch(err => res.status(422).json(err));
+      .populate("lists")
+      .populate("friends")
+      .then(dbUsers => res.json(dbUsers))
+      .catch(err => res.status(422).json(err));
   },
   // GET url example /api/user/:userId
   findById: function(req, res) {
-    console.log("FIND BY ID")
+    console.log("FIND BY ID");
     db.User.findById(req.params.id)
-    .populate("lists")
-    .populate("friends")
-    .populate({
-      path: "lists",
-      populate: { path: "gifts" }
-    })
-    .then(dbUser => res.json(dbUser))
-    .catch(err => res.status(422).json(err));
+      .populate("lists")
+      .populate("friends")
+      .then(dbUser => res.json(dbUser))
+      .catch(err => res.status(422).json(err));
   },
   // get url example /api/user/email with object sent via param data
   // for example axios.get('/user/one', { params: { email: any@email.com }
   findOneByEmail: function(req, res) {
-    console.log("FIND ONE")
-    let param = req.query.email
-    db.User.findOne({ email: param})
+    console.log("FIND ONE");
+    let param = req.query.email;
+    db.User.findOne({ email: param })
       .populate("lists")
       .populate("friends")
-      .populate({
-        path: "lists",
-        populate: { path: "gifts" }
-      })
       .then(dbuser => {
-        if (dbuser) { 
-          res.json(dbuser)
+        if (dbuser) {
+          res.json(dbuser);
         } else {
-          res.json(null)
+          res.json(null);
         }
       });
   },
   // POST url example /api/user
   createOrFindOne: function(req, res) {
-    console.log("CREATE OR FIND")
+    console.log("CREATE OR FIND");
     db.User.findOne(req.body)
       .populate("lists")
       .populate("friends")
-      .populate({
-        path: "lists",
-        populate: { path: "gifts" }
-      })
       .then(user => {
         if (!user) {
           db.User.create(req.body).then(newUser => {
@@ -74,14 +58,10 @@ module.exports = {
   },
   // PUT url example /api/user/:currentUserId/:friendId
   addFriend: function(req, res) {
-    console.log("ADD FRIEND")
+    console.log("ADD FRIEND");
     db.User.findById(req.params.friendId)
       .populate("lists")
       .populate("friends")
-      .populate({
-        path: "lists",
-        populate: { path: "gifts" }
-      })
       .then(dbFriend => {
         return db.User.findOneAndUpdate(
           { _id: req.params.currentUserId },

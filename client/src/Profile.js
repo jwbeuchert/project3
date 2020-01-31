@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+mport React, { Fragment } from "react";
 import { useAuth0 } from "./react-auth0-spa";
 
 const Profile = () => {
