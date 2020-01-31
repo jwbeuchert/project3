@@ -16,23 +16,36 @@ const giftLinks = [
 
 const Home = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
-  const [gift, setGift] = useState({
-    name: "",
-    link: "",
-    description: "",
-    cost: ""
-  });
+  const [giftName, setGiftName] = useState("");
+  const [giftDescription, setGiftDescription] = useState("");
+  const [giftLink, setGiftLink] = useState("");
+  const [giftCost, setGiftCost] = useState(0);
+  // const [giftObj, setGiftObj] = useState({})
 
-  const handleChange = event => {
-    setGift({
-      [event.target.name]: event.target.value
-    });
+  const handleChange = e => {
+    
+    if (e.target.name === "name") {
+      setGiftName(e.target.value);
+    } else if (e.target.name === "description") {
+      setGiftDescription(e.target.value);
+    } else if (e.target.name === "link") {
+      setGiftLink(e.target.value);
+    }
+
+    // setGiftObj({name: giftName, description: giftDescription, link: giftLink})
   };
 
-  const enterGiftItem = () => {
-    // axios.post("/api/gift", gift).then(res => {
-    //   console.log(res);
-    // });
+  const enterGiftItem = e => {
+    e.preventDefault();
+    let allGift = dbUser.lists.filter(el => el.name === "All Gifts");
+    let allGiftId = allGift[0]._id;
+    console.log(allGiftId);
+    let gift = { name: giftName, description: giftDescription, link: giftLink }
+    console.log(gift)
+
+    axios.post("/api/gift/" + allGiftId, gift).then(res => {
+      console.log(res);
+    });
   };
 
   return (
@@ -41,28 +54,34 @@ const Home = () => {
       <div className="sub-page-body">
         <h1 className="sub-page-header">Add To List</h1>
         <div className="sub-section">
-          <h5>
-            Copy and paste the link (address bar) of the gift you want to add
-          </h5>
+          {dbUser &&
+            dbUser.lists.map(list =>
+              list.gifts.map(gift => <h1>{gift.name} q</h1>)
+            )}
           <form>
             <input
               className="form-input2"
-              id="giftItems"
+              id="link"
               name="link"
-              value={gift.link}
-              onChange={handleChange}
+              value={giftLink}
+              onChange={e => handleChange(e)}
             ></input>
           </form>
-
-          <h5>Copy and paste the description if desired</h5>
-          <form>
             <input
               className="form-input2"
-              id="giftDescription"
+              id="description"
               name="description"
-              value={gift.description}
-              onChange={handleChange}
+              value={giftDescription}
+              onChange={e => handleChange(e)}
             ></input>
+            <input
+              className="form-input2"
+              id="name"
+              name="name"
+              value={giftName}
+              onChange={e => handleChange(e)}
+            ></input>
+            <button onClick={e => enterGiftItem(e)}>Enter Gift Link</button>
           </form>
           <button onClick={enterGiftItem}>Enter Gift Link</button>
         </div>
@@ -72,16 +91,6 @@ const Home = () => {
           <div className="sub-container">
             <div className="card" id="card1">
               <div className="card-body">
-                {dbUser &&
-                  dbUser.lists.map(list =>
-                    list.gifts.map(gift => <h1>{gift.name}</h1>)
-                  )}
-                {/* {.map(item => {
-                    return <div>{item.link}</div>;
-                  })}
-                  {this.state.giftList.map(item => {
-                    return <div>{item.description}</div>; */}
-                })}
               </div>
             </div>
           </div>
