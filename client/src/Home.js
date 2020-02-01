@@ -24,7 +24,12 @@ const Home = () => {
     let allGift = dbUser.lists.filter(el => el.name === "All Gifts");
     let allGiftId = allGift[0]._id;
     console.log(allGiftId);
-    let gift = { name: giftName, description: giftDescription, link: giftLink };
+    let gift = {
+      name: giftName,
+      description: giftDescription,
+      link: giftLink,
+      cost: giftCost
+    };
     console.log(gift);
 
     axios.post("/api/gift/" + allGiftId, gift).then(res => {
@@ -39,12 +44,22 @@ const Home = () => {
           <h1 className="sub-page-header">Add To List</h1>
         </div>
       </div>
+
       <div className="sub-page-body">
         <div className="sub-section">
-          <h6>
-            Copy and paste the link (address bar) of the gift you want to add
-          </h6>
+          <h6>Enter a name of the gift</h6>
           <form>
+            <input
+              className="form-input2"
+              id="name"
+              name="name"
+              value={giftName}
+              onChange={e => handleChange(e)}
+            ></input>
+
+            <h6>
+              Copy and paste the link (address bar) of the gift you want to add
+            </h6>
             <input
               className="form-input2"
               id="link"
@@ -52,6 +67,7 @@ const Home = () => {
               value={giftLink}
               onChange={e => handleChange(e)}
             ></input>
+
             <h6>Paste a description if desired</h6>
             <input
               className="form-input2"
@@ -60,6 +76,7 @@ const Home = () => {
               value={giftDescription}
               onChange={e => handleChange(e)}
             ></input>
+
             <h6>Cost of item</h6>
             <input
               className="form-input2"
@@ -83,13 +100,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="uToken">
+      {/* <div className="uToken">
         {dbUser && dbUser._id}
         {dbUser &&
           dbUser.lists.map(list =>
             list.gifts.map(gift => <h1>{gift.name} q</h1>)
           )}
-      </div>
+      </div> */}
     </>
   );
 };
