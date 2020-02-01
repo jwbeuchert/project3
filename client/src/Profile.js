@@ -9,13 +9,21 @@ const Profile = () => {
   }
 
   return (
-    <Fragment>
-      <img src={user.picture} alt="Profile" />
+    <>
+      <div className="sub-page-body">
+        <div className="sub-section">
+          <img
+            style={{ maxWidth: 100, maxHeight: 100 }}
+            src={user.picture}
+            alt="Profile"
+          />
 
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
-      <code>{JSON.stringify(user, null, 2)}</code>
-    </Fragment>
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
+          <code>{JSON.stringify(user, null, 2)}</code>
+        </div>
+      </div>
+    </>
   );
 };
 
