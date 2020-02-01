@@ -4,7 +4,7 @@ import { UserContext } from "../../utils/UserContext";
 import UserCard from "../UserCard";
 import NoResultCard from "../NoResultCard";
 
-const GiveForm = () => {
+const FriendForm = () => {
   const [emailSearch, setEmailSearch] = useState("");
   const [friendReturned, setFriendReturned] = useState(null);
   const { dbUser, setDbUser } = useContext(UserContext);
@@ -98,4 +98,4 @@ const GiveForm = () => {
   );
 };
 
-export default GiveForm;
+export default FriendForm;
