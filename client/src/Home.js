@@ -93,20 +93,9 @@ const Home = () => {
       <div className="sub-page-body">
         <div className="sub-section">
           <h5 className="sub-header">Gift List</h5>
-          <div className="sub-container">
-            {/* get "All Gift" list and map through "gifts" array */}
-            {/* <Gift gift={gift} />
-            <button>Delete</button> */}
-          </div>
+          <div className="sub-container"></div>
         </div>
       </div>
-      {/* <div className="uToken">
-        {dbUser && dbUser._id}
-        {dbUser &&
-          dbUser.lists.map(list =>
-            list.gifts.map(gift => <h1>{gift.name} q</h1>)
-          )}
-      </div> */}
     </>
   );
 };

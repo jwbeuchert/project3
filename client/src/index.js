@@ -1,42 +1,27 @@
 import React from "react";
-import { useAuth0 } from "../../react-auth0-spa";
-import { Link } from "react-router-dom";
-import Login from "../../pages/Login";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { Auth0Provider } from "./react-auth0-spa";
+import config from "./auth_config.js";
+import history from "./utils/history";
 import "./index.css";
 
-const Nav = () => {
-  const { isAuthenticated, logout, user } = useAuth0();
-
-  return (
-    <div>
-      {!isAuthenticated ? (
-        <Login />
-      ) : (
-        <nav className="nav-container">
-          <span className="d-inline-flex">
-            <h3 className="userName">Welcome, {user.name}</h3>
-            <button className="btn btn-primary" onClick={() => logout()}>
-              Log Out
-            </button>
-          </span>
-          <div className="nav-flex">
-            <div className="nav-items">
-              <Link to="/home">Home</Link>
-            </div>
-            <div className="nav-items">
-              <Link to="/profile">Profile</Link>
-            </div>
-            <div className="nav-items">
-              <Link to="/lists">My Lists</Link>
-            </div>
-            <div className="nav-items">
-              <Link to="/friends">Friends</Link>
-            </div>
-          </div>
-        </nav>
-      )}
-    </div>
+const onRedirectCallback = appState => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
   );
 };
 
-export default Nav;
+ReactDOM.render(
+  <Auth0Provider
+    domain={config.domain}
+    client_id={config.clientId}
+    redirect_uri={window.location.origin}
+    onRedirectCallback={onRedirectCallback}
+  >
+    <App />
+  </Auth0Provider>,
+  document.getElementById("root")
+);
