@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import NoResultCard from "../../components/NoResultCard";
 import UserCard from "../../components/UserCard";
-import GiveForm from "../../components/GiveForm";
+import FriendForm from "../../components/FriendForm";
 import { UserContext } from "../../utils/UserContext";
 
-const GiveGiftsPage = () => {
+const Friends = () => {
   const { dbUser } = useContext(UserContext);
 
   return (
@@ -13,7 +13,7 @@ const GiveGiftsPage = () => {
         <h1 className="sub-page-header">Give Gifts</h1>
       </div>
       <div className="sub-section">
-        <GiveForm />
+        <FriendForm />
       </div>
       <div className="sub-section">
         <h5 className="sub-header">List of Friends</h5>
@@ -34,4 +34,4 @@ const GiveGiftsPage = () => {
   );
 };
 
-export default GiveGiftsPage;
+export default Friends;
