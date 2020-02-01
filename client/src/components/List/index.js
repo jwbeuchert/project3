@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSpring, animated as a } from "react-spring";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 
 const List = props => {
-  let isCheckedStyle = props.isChecked ? {backgroundColor: "#baf4d3"} : null
+  const selectedStyleColor = useSpring({
+    backgroundColor: props.isChecked ? "#baf4d3" : "white"
+  });
+  const fade = useSpring({
+    opacity: props.isChecked ? 1 : 0
+  });
+
   return (
-    <div
+    <a.div
       className="card sub-card"
       onClick={() => props.handleListClick(props.list._id)}
-      style={isCheckedStyle}
+      style={selectedStyleColor}
     >
       <div className="card-body">
         <h5 className="card-title">{props.list.name}</h5>
@@ -25,12 +32,13 @@ const List = props => {
           </button>
         </div>
       )}
-      {props.isChecked && (
-        <div className="font-awesome">
-          <FontAwesomeIcon icon={faCheckSquare} />
-        </div>
-      )}
-    </div>
+      <a.div
+        className="font-awesome c front"
+        style={fade}
+      >
+        <FontAwesomeIcon icon={faCheckSquare} />
+      </a.div>
+    </a.div>
   );
 };
 
