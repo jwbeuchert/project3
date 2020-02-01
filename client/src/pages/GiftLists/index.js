@@ -1,16 +1,17 @@
 import React, { useState, useContext } from "react";
+import { useSpring, animated as a} from "react-spring"
 import axios from "axios";
 import { UserContext } from "../../utils/UserContext";
 import List from "../../components/List";
 import ListForm from "../../components/ListForm";
-import UserCard from "../../components/UserCard";
+import AnimatedCards from "../../components/AnimatedCards";
 import NoResultCard from "../../components/NoResultCard";
 import "./styles.css";
 
 const GiftLists = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
   const [listChecked, setListChecked] = useState(false);
-
+  
   const createList = (e, listname) => {
     e.preventDefault();
     console.log(listname);
@@ -31,7 +32,10 @@ const GiftLists = () => {
   };
 
   const handleListClick = listId => {
-    setListChecked(listId);
+    if (listId === listChecked) {
+      return setListChecked(null);
+    }
+    return setListChecked(listId);
   };
 
   return (
@@ -60,10 +64,9 @@ const GiftLists = () => {
           )}
         </div>
       </div>
-      <div className="sub-section add-friend-to-list">
-        <h5 className="sub-header">Click on a Friend to Add to List</h5>
-        {dbUser && dbUser.friends.map(friend => <UserCard user={friend} />)}
-      </div>
+      {listChecked && (
+        <AnimatedCards title="Add Friends to Your List" user={dbUser} />
+      )}
     </div>
   );
 };
