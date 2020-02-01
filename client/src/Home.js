@@ -68,7 +68,7 @@ const Home = () => {
               value={giftName}
               onChange={e => handleChange(e)}
             ></input>
-            <button onClick={e => enterGiftItem(e)}>Enter Gift Link</button>
+            <button onClick={e => enterGiftItem(e)}>Submit</button>
           </form>
         </div>
       </div>
