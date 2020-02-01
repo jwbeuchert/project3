@@ -94,9 +94,9 @@ const Home = () => {
         <div className="sub-section">
           <h5 className="sub-header">Gift List</h5>
           <div className="sub-container">
-            <div className="card" id="card1">
-              <div className="card-body"></div>
-            </div>
+            {/* get "All Gift" list and map through "gifts" array */}
+            {/* <Gift gift={gift} />
+            <button>Delete</button> */}
           </div>
         </div>
       </div>

@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "install": "^0.13.0",
-    "mongoose": "^5.8.9"
+    "mongoose": "^5.8.9",
+    "react-spring": "^8.0.27"
   }
 }

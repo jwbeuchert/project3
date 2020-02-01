@@ -27,13 +27,10 @@ const Nav = () => {
               <Link to="/profile">Profile</Link>
             </div>
             <div className="nav-items">
-              <Link to="/mngGivers">Gift Giver List</Link>
-            </div>
-            <div className="nav-items">
               <Link to="/lists">My Lists</Link>
             </div>
             <div className="nav-items">
-              <Link to="/give">Give Gifts</Link>
+              <Link to="/friends">Friends</Link>
             </div>
           </div>
         </nav>
