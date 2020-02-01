@@ -41,9 +41,9 @@ const Home = () => {
       </div>
       <div className="sub-page-body">
         <div className="sub-section">
-          <h4>
+          <h6>
             Copy and paste the link (address bar) of the gift you want to add
-          </h4>
+          </h6>
           <form>
             <input
               className="form-input2"
@@ -52,7 +52,7 @@ const Home = () => {
               value={giftLink}
               onChange={e => handleChange(e)}
             ></input>
-            <h4>Paste a description if desired</h4>
+            <h6>Paste a description if desired</h6>
             <input
               className="form-input2"
               id="description"
@@ -60,7 +60,7 @@ const Home = () => {
               value={giftDescription}
               onChange={e => handleChange(e)}
             ></input>
-            <h4>Cost of item</h4>
+            <h6>Cost of item</h6>
             <input
               className="form-input2"
               id="name"
