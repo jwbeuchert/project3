@@ -85,9 +85,6 @@ const Home = () => {
       </div>
       <div className="uToken">
         {dbUser && dbUser._id}
-        {/* <div className="sub-page-body">
-        <div className="sub-section"> */}
-        {/* <h1 className="sub-page-header">Add To List</h1> */}
         {dbUser &&
           dbUser.lists.map(list =>
             list.gifts.map(gift => <h1>{gift.name} q</h1>)
