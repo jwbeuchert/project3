@@ -7,7 +7,7 @@ const Home = () => {
   const [giftName, setGiftName] = useState("");
   const [giftDescription, setGiftDescription] = useState("");
   const [giftLink, setGiftLink] = useState("");
-  const [giftCost, setGiftCost] = useState("");
+  const [giftCost, setGiftCost] = useState(0);
 
   const handleChange = e => {
     if (e.target.name === "name") {
@@ -18,6 +18,7 @@ const Home = () => {
       setGiftLink(e.target.value);
     } else if (e.target.name === "cost") {
       setGiftCost(e.target.value);
+    }
   };
 
   const enterGiftItem = e => {
