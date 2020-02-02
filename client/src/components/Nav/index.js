@@ -13,24 +13,24 @@ const Nav = () => {
         <Login />
       ) : (
         <nav className="nav-container">
-          <div>
+          <span className="d-inline-flex">
             <h3 className="userName">Welcome, {user.name}</h3>
-            <div className="nav-flex">
-              <div className="nav-items">
-                <Link to="/home">Home</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/profile">Profile</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/lists">My Lists</Link>
-              </div>
-              <div className="nav-items">
-                <Link to="/friends">Friends</Link>
-              </div>
-              <button className="btn btn-primary" onClick={() => logout()}>
-                Log Out
-              </button>
+            <button className="btn btn-primary" onClick={() => logout()}>
+              Log Out
+            </button>
+          </span>
+          <div className="nav-flex">
+            <div className="nav-items">
+              <Link to="/home">Home</Link>
+            </div>
+            <div className="nav-items">
+              <Link to="/profile">Profile</Link>
+            </div>
+            <div className="nav-items">
+              <Link to="/lists">My Lists</Link>
+            </div>
+            <div className="nav-items">
+              <Link to="/friends">Friends</Link>
             </div>
           </div>
         </nav>
@@ -38,5 +38,5 @@ const Nav = () => {
     </div>
   );
 };
-
+// test
 export default Nav;
