@@ -6,7 +6,7 @@ const listSchema = new Schema({
     dateAdded: { type: Date, default: Date.now },
     chats: [{ type: Schema.Types.ObjectId, ref: 'Chat'}],
     gifts: [{ type: Schema.Types.ObjectId, ref: 'Gift'}],
-    gifters: [{ type: Schema.Types.ObjectId, ref: 'User'}]
+    gifters: [{ type: Schema.Types.ObjectId, ref: 'User'}],
 });
 
 const List = mongoose.model("List", listSchema);

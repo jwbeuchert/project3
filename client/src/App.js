@@ -10,7 +10,6 @@ import Profile from "./Profile";
 import GiftLists from "./pages/GiftLists";
 import Friends from "./pages/Friends";
 import GiveGift from "./pages/GiveGift"
-import Login from "./pages/Login";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
 import "./App.css";
