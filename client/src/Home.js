@@ -7,7 +7,7 @@ const Home = () => {
   const [giftName, setGiftName] = useState("");
   const [giftDescription, setGiftDescription] = useState("");
   const [giftLink, setGiftLink] = useState("");
-  const [giftCost, setGiftCost] = useState(0);
+  const [giftCost, setGiftCost] = useState("");
 
   const handleChange = e => {
     if (e.target.name === "name") {
@@ -16,7 +16,8 @@ const Home = () => {
       setGiftDescription(e.target.value);
     } else if (e.target.name === "link") {
       setGiftLink(e.target.value);
-    }
+    } else if (e.target.name === "cost") {
+      setGiftCost(e.target.value);
   };
 
   const enterGiftItem = e => {
@@ -80,9 +81,9 @@ const Home = () => {
             <h6>Cost of item</h6>
             <input
               className="form-input2"
-              id="name"
-              name="name"
-              value={giftName}
+              id="cost"
+              name="cost"
+              value={giftCost}
               onChange={e => handleChange(e)}
             ></input>
             <button onClick={e => enterGiftItem(e)}>Submit</button>
@@ -98,7 +99,8 @@ const Home = () => {
       </div>
       <div className="uToken">
         {dbUser && dbUser._id}
-        {dbUser && dbUser.lists.gifts &&
+        {dbUser &&
+          dbUser.lists.gifts &&
           dbUser.lists.map(list =>
             list.gifts.map(gift => <h1>{gift.name} q</h1>)
           )}
