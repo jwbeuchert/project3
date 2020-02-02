@@ -30,32 +30,25 @@ const GiftLists = () => {
 
   const createList = (e, listname) => {
     e.preventDefault();
-    console.log(listname);
     axios.post(`/api/list/${dbUser._id}`, { name: listname }).then(res => {
-      console.log("List added");
-      console.log(res.data.lists[0]);
       setDbUser(res.data);
     });
   };
 
   const deleteList = (e, listid) => {
     e.preventDefault();
-    console.log(listid);
     axios.delete(`/api/list/${listid}/${dbUser._id}`).then(res => {
-      console.log("List deleted");
       setDbUser(res.data);
     });
   };
 
   const addFriendToList = friendId => {
-    console.log(`/api/list/add-gifter/${listChecked}/${friendId}`);
     axios
       .put(`/api/list/add-gifter/${listChecked}/${friendId}`)
       .then(dbList => dbList);
   };
 
   const removeFriendFromList = friendId => {
-    console.log(`/api/list/remove-gifter/${listChecked}/${friendId}`);
     axios
       .put(`/api/list/remove-gifter/${listChecked}/${friendId}`)
       .then(dbList => dbList);
@@ -66,8 +59,6 @@ const GiftLists = () => {
   };
 
   const handleClick = (cardType, itemId) => {
-    console.log(itemId);
-    console.log(cardType);
     if (cardType === "list") {
       if (itemId === listChecked) {
         return setListChecked(null);
@@ -76,12 +67,10 @@ const GiftLists = () => {
     } else if (cardType === "friend" && listChecked) {
       if (findFriendCheckedState(itemId)) {
         setFriendsChecked(friendsChecked.filter(id => id !== itemId));
-        console.log(friendsChecked);
         return removeFriendFromList(itemId);
       }
       let newArray = friendsChecked.concat(itemId);
       setFriendsChecked(newArray);
-      console.log(friendsChecked);
       return addFriendToList(itemId);
     }
   };
@@ -117,7 +106,7 @@ const GiftLists = () => {
       </div>
       {listChecked && (
         <div className="sub-section">
-          <h5 className="sub-header">List of Friends</h5>
+          <h5 className="sub-header">Add Friends to List</h5>
           <div className="sub-container">
             {dbUser && dbUser.friends.length > 0 ? (
               dbUser.friends.map(friend => (

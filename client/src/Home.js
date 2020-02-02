@@ -85,7 +85,7 @@ const Home = () => {
       </div>
       <div className="uToken">
         {dbUser && dbUser._id}
-        {dbUser &&
+        {dbUser && dbUser.lists.gifts &&
           dbUser.lists.map(list =>
             list.gifts.map(gift => <h1>{gift.name} q</h1>)
           )}
