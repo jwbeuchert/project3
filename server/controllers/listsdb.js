@@ -1,7 +1,7 @@
 const db = require("../models");
 
 module.exports = {
-  // url example: /api/list/:userid
+  // POST url example: /api/list/:userid
   create: function(req, res) {
     console.log(`CREATE list for user ${req.params.userid}`);
     console.log(`${JSON.stringify(req.body)} and ${req.params.userid}`);
@@ -19,7 +19,7 @@ module.exports = {
       .then(dbuser => res.json(dbuser))
       .catch(err => res.status(422).json(err));
   },
-  // url example: /api/list/:listid/:userid/
+  // DELETE url example: /api/list/:listid/:userid/
   remove: function(req, res) {
     console.log(
       `DELETE userid: ${req.params.userid} || listid: ${req.params.listid}`
@@ -36,8 +36,34 @@ module.exports = {
       .then(dbuser => res.json(dbuser))
       .catch(err => res.status(422).json(err));
   },
+  // PUT url example: /api/list/add-gifter/:listid/:userid
+  addGifter: function(req, res) {
+    console.log(`PUT add gifter `);
+    console.log(`${req.params.listid} || ${req.params.userid}`)
+    db.List.findByIdAndUpdate(req.params.listid).then(dbList => {
+      dbList.gifters.push(req.params.userid);
+      dbList.save()
+    });
+  },
+  // PUT url example: /api/list/remove-gifter/:listid/:userid
+  removeGifter: function(req, res) {
+    console.log(`PUT remove gifter `);
+    db.List.findByIdAndUpdate(req.params.listid).then(dbList => {
+      dbList.gifters.pull(req.params.userid);
+      dbList.save()
+    });
+  },
+  // GET url example: /api/list
   findAll: function(req, res) {
-    console.log(`GET all lists`)
-    db.List.find().populate("gifts").then(dbLists => res.json(dbLists));
+    console.log(`GET all lists`);
+    db.List.find()
+      .populate("gifts")
+      .then(dbLists => res.json(dbLists));
+  },
+  findOne: function(req, res) {
+    console.log(`GET one list`);
+    db.List.findById(req.params.listid)
+      .then(dbList => res.json(dbList))
+      .catch(err => res.status(422).json(err));
   }
 };
