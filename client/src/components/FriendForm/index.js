@@ -50,7 +50,7 @@ const FriendForm = () => {
   const addFriend = e => {
     e.preventDefault();
     axios
-      .put("/api/user/" + dbUser._id + "/" + friendReturned._id)
+      .put(`/api/user/${dbUser._id}/${friendReturned._id}`)
       .then(dbuser => {
         console.log(dbuser.data);
         setFriendReturned(null);

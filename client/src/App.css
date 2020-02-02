@@ -51,3 +51,8 @@
 #card1 {
   width: 100%;
 }
+
+.delete-button {
+  display: flex;
+  justify-content: flex-end;
+}

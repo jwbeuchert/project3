@@ -10,7 +10,7 @@ const ListCardContents = props => {
       {props.list.name === "All Gifts" ? (
         <></>
       ) : (
-        <div className="del-list">
+        <div className="delete-button">
           <button
             className="btn btn-danger btn-form"
             onClick={e => props.deleteList(e, props.list._id)}

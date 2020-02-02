@@ -106,7 +106,7 @@ const GiftLists = () => {
       </div>
       {listChecked && (
         <div className="sub-section">
-          <h5 className="sub-header">Add Friends to List</h5>
+          <h5 className="sub-header">Add Friends to Selected Gift List</h5>
           <div className="sub-container">
             {dbUser && dbUser.friends.length > 0 ? (
               dbUser.friends.map(friend => (
