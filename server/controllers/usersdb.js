@@ -97,7 +97,7 @@ module.exports = {
   // DELETE url example /api/user/:currentUserId/:friendId
   removeFriend: function(req, res) {
     console.log(
-      `DELETE add friend ${req.params.currentUserId} || ${req.params.friendId}`
+      `DELETE remove friend ${req.params.currentUserId} || ${req.params.friendId}`
     );
     db.User.findByIdAndUpdate(
       req.params.currentUserId,
