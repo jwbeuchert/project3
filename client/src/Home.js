@@ -34,7 +34,6 @@ const Home = () => {
 
   return (
     <>
-    <Chat />
   <div>{dbUser && dbUser._id}</div>
       <div className="sub-page-body">
         <h1 className="sub-page-header">Add To List</h1>
