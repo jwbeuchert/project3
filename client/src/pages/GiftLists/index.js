@@ -6,7 +6,6 @@ import ListForm from "../../components/ListForm";
 import AnimatedCards from "../../components/AnimatedCards";
 import NoResultCard from "../../components/NoResultCard";
 import FriendCardContents from "../../components/FriendCardContents";
-import "./styles.css";
 
 const GiftLists = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
@@ -35,9 +34,10 @@ const GiftLists = () => {
     });
   };
 
-  const deleteList = (e, listid) => {
-    e.preventDefault();
+  const deleteList = (listid) => {
+    setListChecked(null)
     axios.delete(`/api/list/${listid}/${dbUser._id}`).then(res => {
+      console.log(JSON.stringify(res.data))
       setDbUser(res.data);
     });
   };

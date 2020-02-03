@@ -1,17 +1,22 @@
-header {
+.main-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     background-image: linear-gradient(to top right, #b7beff, black);
+  }
+
+header {
     color: white;
 }
 
 .title {
     font-family: 'Crushed', cursive;
-    font-size: 80px;
-    padding: 20px;
+    font-size: 35px;
+    margin: 0 5px;
 }
 
-.login-status {
-    align-self: flex-end;
-    padding: 20px
-}
+@media only screen and (max-width: 525px) {
+    header {
+      display: none;
+    }
+  }

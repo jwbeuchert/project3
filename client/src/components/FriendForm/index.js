@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserContext } from "../../utils/UserContext";
 import UserCard from "../UserCard";
 import NoResultCard from "../NoResultCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons"
 
 const FriendForm = () => {
   const [emailSearch, setEmailSearch] = useState("");
@@ -47,8 +49,7 @@ const FriendForm = () => {
       });
   };
 
-  const addFriend = e => {
-    e.preventDefault();
+  const addFriend = () => {
     axios
       .put(`/api/user/${dbUser._id}/${friendReturned._id}`)
       .then(dbuser => {
@@ -88,10 +89,7 @@ const FriendForm = () => {
         <NoResultCard message="Email not found!" />
       ) : friendReturned ? (
         <>
-          <UserCard user={friendReturned} />
-          <button className="btn btn-success" onClick={e => addFriend(e)}>
-            Add Friend
-          </button>
+          <UserCard user={friendReturned} addFriend={addFriend} add={true} />
         </>
       ) : null}
     </div>

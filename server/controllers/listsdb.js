@@ -28,8 +28,9 @@ module.exports = {
       .then(dblist => {
         console.log("list deleted");
         return db.User.findByIdAndUpdate(req.params.userid, {
-          $pull: { lists: dblist._id }
-        })
+          $pull: { lists: dblist._id } },
+          { new: true }
+        )
           .populate("lists")
           .populate("friends");
       })
