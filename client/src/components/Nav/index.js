@@ -9,9 +9,7 @@ const Nav = () => {
 
   return (
     <div>
-      {!isAuthenticated ? (
-        <Login />
-      ) : (
+      {isAuthenticated && (
         <nav className="nav-container">
           <div className="nav-flex">
             <div className="nav-items">
