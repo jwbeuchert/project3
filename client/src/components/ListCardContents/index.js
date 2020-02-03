@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTimes } from "@fortawesome/free-solid-svg-icons"
 
 const ListCardContents = props => {
 
@@ -10,13 +12,12 @@ const ListCardContents = props => {
       {props.list.name === "All Gifts" ? (
         <></>
       ) : (
-        <div className="del-list">
-          <button
-            className="btn btn-danger btn-form"
-            onClick={e => props.deleteList(e, props.list._id)}
-          >
-            Delete
-          </button>
+        <div className="font-awesome delete-button">
+          <FontAwesomeIcon
+            className="fa-times"
+            icon={faTimes}
+            onClick={() => props.deleteList(props.list._id)}
+          />
         </div>
       )}
     </>

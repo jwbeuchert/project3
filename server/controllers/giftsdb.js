@@ -46,25 +46,34 @@ module.exports = {
   // DELETE url example: /api/gift/:giftid
   remove: function(req, res) {
     console.log(`REMOVE gift ${req.params.giftid}`);
-    db.Gift.findByIdAndDelete(req.params.giftid).populate("lists")
+    db.Gift.findByIdAndDelete(req.params.giftid)
+      .populate("lists")
       .then(dbGift => {
         console.log("gift deleted");
-        console.log(dbGift)
+        console.log(dbGift);
         dbGift.lists.forEach(list => {
-          removeGiftFromLists(list._id, dbGift._id)
+          removeGiftFromLists(list._id, dbGift._id);
         });
-        res.JSON(dbGift)
+        res.JSON(dbGift);
       })
       .catch(err => res.status(422).json(err));
   },
   findAll: function(req, res) {
-    console.log(`GET all gifts`)
-    db.Gift.find().populate("lists").then(dbGifts => res.json(dbGifts));
+    console.log(`GET all gifts`);
+    db.Gift.find()
+      .populate("lists")
+      .then(dbGifts => res.json(dbGifts))
+      .catch(err => res.status(422).json(err));
   }
 };
 
 const removeGiftFromLists = (listid, giftid) => {
-  db.List.findByIdAndUpdate(listid, {
-    $pull: { gifts: giftid }
-  }).then(list => console.log(`remove function and updated ${list._id}`))
-}
+  db.List.findByIdAndUpdate(
+    listid,
+    {
+      $pull: { gifts: giftid }
+    },
+    { new: true }
+  )
+    .then(dbList => dbList)
+};

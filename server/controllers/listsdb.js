@@ -28,8 +28,9 @@ module.exports = {
       .then(dblist => {
         console.log("list deleted");
         return db.User.findByIdAndUpdate(req.params.userid, {
-          $pull: { lists: dblist._id }
-        })
+          $pull: { lists: dblist._id } },
+          { new: true }
+        )
           .populate("lists")
           .populate("friends");
       })
@@ -39,19 +40,25 @@ module.exports = {
   // PUT url example: /api/list/add-gifter/:listid/:userid
   addGifter: function(req, res) {
     console.log(`PUT add gifter `);
-    console.log(`${req.params.listid} || ${req.params.userid}`)
-    db.List.findByIdAndUpdate(req.params.listid).then(dbList => {
-      dbList.gifters.push(req.params.userid);
-      dbList.save()
-    });
+    console.log(`${req.params.listid} || ${req.params.userid}`);
+    db.List.findByIdAndUpdate(
+      req.params.listid,
+      { $push: { gifters: req.params.userid } },
+      { new: true }
+    )
+      .then(dbList => res.json(dbList))
+      .catch(err => res.status(422).json(err));
   },
   // PUT url example: /api/list/remove-gifter/:listid/:userid
   removeGifter: function(req, res) {
     console.log(`PUT remove gifter `);
-    db.List.findByIdAndUpdate(req.params.listid).then(dbList => {
-      dbList.gifters.pull(req.params.userid);
-      dbList.save()
-    });
+    db.List.findByIdAndUpdate(
+      req.params.listid,
+      { $pull: { gifters: req.params.userid } },
+      { new: true }
+    )
+      .then(dbList => res.json(dbList))
+      .catch(err => res.status(422).json(err));
   },
   // GET url example: /api/list
   findAll: function(req, res) {
