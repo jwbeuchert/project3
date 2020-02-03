@@ -1,6 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faUserPlus, faGifts } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faUserPlus,
+  faGifts
+} from "@fortawesome/free-solid-svg-icons";
 
 const UserCard = props => {
   return (
@@ -25,14 +30,15 @@ const UserCard = props => {
         </div>
       )}
       {props.giftee && (
-        <div className="font-awesome fa-friend-add-div">
-        <FontAwesomeIcon
-          icon={faGifts}
-          onClick={() => props.addFriend()}
-        />
-      </div>
+        <Link
+          to={{ pathname: `/give`, state: { friendId: props.user._id } }}
+          className="fa-gift-link"
+        >
+          <div className="font-awesome fa-friend-add-div">
+            <FontAwesomeIcon icon={faGifts} />
+          </div>
+        </Link>
       )}
-
     </div>
   );
 };

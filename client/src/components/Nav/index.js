@@ -1,11 +1,10 @@
 import React from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import { Link } from "react-router-dom";
-import Login from "../../pages/Login";
 import "./index.css";
 
 const Nav = () => {
-  const { isAuthenticated, logout, user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <div>
