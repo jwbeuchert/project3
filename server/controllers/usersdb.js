@@ -11,6 +11,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbUsers => res.json(dbUsers))
       .catch(err => res.status(422).json(err));
   },
@@ -24,6 +26,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   },
@@ -39,6 +43,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbuser => {
         if (dbuser) {
           res.json(dbuser);
@@ -57,6 +63,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(user => {
         if (!user) {
           db.List.create({ name: "All Gifts" }).then(newList => {
@@ -91,6 +99,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   },
@@ -110,6 +120,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   }
