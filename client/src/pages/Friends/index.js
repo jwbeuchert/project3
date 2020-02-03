@@ -16,6 +16,10 @@ const Friends = () => {
       })
   };
 
+  const handleFriendClick = friendId => {
+    console.log(`handling friend click ${friendId}`)
+  }
+
   return (
     <div className="sub-page-body">
       <div className="sub-section">
@@ -35,6 +39,8 @@ const Friends = () => {
                   user={friend}
                   removeFriend={removeFriend}
                   remove={true}
+                  giftee={true}
+                  handleFriendClick={handleFriendClick}
                 />
               );
             })

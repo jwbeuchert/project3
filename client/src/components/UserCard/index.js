@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faUserPlus, faGifts } from "@fortawesome/free-solid-svg-icons";
 
 const UserCard = props => {
   return (
@@ -23,6 +23,14 @@ const UserCard = props => {
             onClick={() => props.addFriend()}
           />
         </div>
+      )}
+      {props.giftee && (
+        <div className="font-awesome fa-friend-add-div">
+        <FontAwesomeIcon
+          icon={faGifts}
+          onClick={() => props.addFriend()}
+        />
+      </div>
       )}
 
     </div>

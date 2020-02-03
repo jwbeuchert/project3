@@ -12,6 +12,7 @@ import GiveGift from "./pages/GiveGift";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
 import LoginStatus from "./components/LoginStatus"
+import Login from "./pages/Login"
 import "./App.css";
 
 function App() {
@@ -42,7 +43,9 @@ function App() {
       </div>
       <Switch>
         <UserContext.Provider value={providerUser}>
-          {isAuthenticated && (
+          {!isAuthenticated ? (
+                    <Login />
+          ) : (
             <>
               <Route path="/" exact component={Home} />
               <Route path="/home" exact component={Home} />
