@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuth0 } from "./react-auth0-spa";
 import axios from "axios";
-import history from "./utils/history";
 import { UserContext } from "./utils/UserContext";
 import Home from "./Home";
 import Profile from "./Profile";
@@ -35,7 +34,7 @@ function App() {
     return <div>Loading...</div>;
   }
   return (
-    <Router history={history}>
+    <Router>
       <div className="main-header">
         <Header />
         <Nav />

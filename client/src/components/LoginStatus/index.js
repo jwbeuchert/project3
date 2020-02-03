@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import "./index.css";
 
