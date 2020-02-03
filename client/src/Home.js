@@ -1,5 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+// import userGiftList from "./pages/userGiftList";
 import { UserContext } from "./utils/UserContext";
+import NoResultCard from "./components/NoResultCard";
+import UserCard from "./components/userGiftCard";
 import axios from "axios";
 
 const Home = () => {
@@ -8,6 +11,13 @@ const Home = () => {
   const [giftDescription, setGiftDescription] = useState("");
   const [giftLink, setGiftLink] = useState("");
   const [giftCost, setGiftCost] = useState(0);
+  const [giftList, setGiftList] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/api/gift/`).then(res => {
+      setGiftList(res.data);
+    });
+  }, []);
 
   const handleChange = e => {
     if (e.target.name === "name") {
@@ -36,6 +46,7 @@ const Home = () => {
 
     axios.post("/api/gift/" + allGiftId, gift).then(res => {
       console.log(res);
+      setGiftList(res.data.gifts);
     });
   };
 
@@ -95,9 +106,22 @@ const Home = () => {
       <div className="sub-page-body">
         <div className="sub-section">
           <h5 className="sub-header">Gift List</h5>
-          <div className="sub-container"></div>
+          <div className="sub-container">
+            {/* <div className="card"> */}
+            {dbUser && giftList.length > 0 ? (
+              giftList.map(gift => {
+                return <UserCard key={gift._id} gift={gift} />;
+              })
+            ) : (
+              <NoResultCard
+                key="none"
+                message={"You haven't added any gifts!"}
+              />
+            )}
+          </div>
         </div>
       </div>
+
       <div className="uToken">
         {dbUser && dbUser._id}
         {dbUser &&
