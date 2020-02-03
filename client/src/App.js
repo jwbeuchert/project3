@@ -1,4 +1,3 @@
-  
 import React, { useEffect, useState, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuth0 } from "./react-auth0-spa";
@@ -9,9 +8,10 @@ import Home from "./Home";
 import Profile from "./Profile";
 import GiftLists from "./pages/GiftLists";
 import Friends from "./pages/Friends";
-import GiveGift from "./pages/GiveGift"
+import GiveGift from "./pages/GiveGift";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
+import LoginStatus from "./components/LoginStatus"
 import "./App.css";
 
 function App() {
@@ -35,8 +35,11 @@ function App() {
   }
   return (
     <Router history={history}>
-      <Header />
-      <Nav />
+      <div className="main-header">
+        <Header />
+        <Nav />
+        <LoginStatus />
+      </div>
       <Switch>
         <UserContext.Provider value={providerUser}>
           {isAuthenticated && (

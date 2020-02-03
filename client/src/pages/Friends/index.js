@@ -3,14 +3,23 @@ import NoResultCard from "../../components/NoResultCard";
 import UserCard from "../../components/UserCard";
 import FriendForm from "../../components/FriendForm";
 import { UserContext } from "../../utils/UserContext";
+import axios from "axios";
 
 const Friends = () => {
-  const { dbUser } = useContext(UserContext);
+  const { dbUser, setDbUser } = useContext(UserContext);
+
+  const removeFriend = friendId => {
+    axios.delete(`/api/user/${dbUser._id}/${friendId}`)
+      .then(dbUser => {
+        console.log(dbUser)
+        setDbUser(dbUser.data)
+      })
+  };
 
   return (
     <div className="sub-page-body">
       <div className="sub-section">
-        <h1 className="sub-page-header">Give Gifts</h1>
+        <h1 className="sub-page-header">Manage Friends</h1>
       </div>
       <div className="sub-section">
         <FriendForm />
@@ -20,7 +29,14 @@ const Friends = () => {
         <div className="sub-container">
           {dbUser && dbUser.friends.length > 0 ? (
             dbUser.friends.map(friend => {
-              return <UserCard key={friend._id} user={friend} />;
+              return (
+                <UserCard
+                  key={friend._id}
+                  user={friend}
+                  removeFriend={removeFriend}
+                  remove={true}
+                />
+              );
             })
           ) : (
             <NoResultCard

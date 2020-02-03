@@ -3,7 +3,7 @@ import NoResultCard from "../../components/NoResultCard";
 import UserCard from "../../components/UserCard";
 import { UserContext } from "../../utils/UserContext";
 
-const GiveGiftsPage = () => {
+const GiveGift = () => {
   const { dbUser } = useContext(UserContext);
 
   return (
@@ -30,4 +30,4 @@ const GiveGiftsPage = () => {
   );
 };
 
-export default GiveGiftsPage;
+export default GiveGift;

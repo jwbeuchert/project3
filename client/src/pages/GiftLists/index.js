@@ -6,7 +6,6 @@ import ListForm from "../../components/ListForm";
 import AnimatedCards from "../../components/AnimatedCards";
 import NoResultCard from "../../components/NoResultCard";
 import FriendCardContents from "../../components/FriendCardContents";
-import "./styles.css";
 
 const GiftLists = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
@@ -35,9 +34,10 @@ const GiftLists = () => {
     });
   };
 
-  const deleteList = (e, listid) => {
-    e.preventDefault();
+  const deleteList = (listid) => {
+    setListChecked(null)
     axios.delete(`/api/list/${listid}/${dbUser._id}`).then(res => {
+      console.log(JSON.stringify(res.data))
       setDbUser(res.data);
     });
   };
@@ -106,7 +106,7 @@ const GiftLists = () => {
       </div>
       {listChecked && (
         <div className="sub-section">
-          <h5 className="sub-header">Add Friends to List</h5>
+          <h5 className="sub-header">Add Friends to Selected Gift List</h5>
           <div className="sub-container">
             {dbUser && dbUser.friends.length > 0 ? (
               dbUser.friends.map(friend => (
