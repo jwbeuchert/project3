@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./utils/UserContext"
 import axios from "axios";
-import Chat from './components/chat'
+import Chat from "./components/chat"
 
 const giftLinks = [
   {
@@ -34,6 +34,7 @@ const Home = () => {
 
   return (
     <>
+    <Chat />
   <div>{dbUser && dbUser._id}</div>
       <div className="sub-page-body">
         <h1 className="sub-page-header">Add To List</h1>

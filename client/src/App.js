@@ -24,8 +24,6 @@ function App() {
   ]);
 
   useEffect(() => {
-    const rootRef = firebase.database().ref();
-    rootRef.on("value", snap => console.log(snap.val()));
     if (isAuthenticated) {
       axios.post("/api/user", { email: user.email }).then(res => {
         setDbUser(res.data);
