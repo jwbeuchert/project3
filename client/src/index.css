@@ -1,40 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Arsenal', sans-serif;
   background: #3d3d3d;
-}
-
-.body {
-  margin: 15px;
 }
 
 #LoggedIn {
   color: black;
-}
-
-button {
-  margin: 5px;
-}
-
-ul.unstyled {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav a {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-}
-
-nav a:hover {
-  background-color: #d9390d;
-}
-
-nav button {
-  margin-top: 13px;
 }
 
 .uToken {

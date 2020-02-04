@@ -11,6 +11,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbUsers => res.json(dbUsers))
       .catch(err => res.status(422).json(err));
   },
@@ -24,6 +26,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   },
@@ -39,6 +43,8 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(dbuser => {
         if (dbuser) {
           res.json(dbuser);
@@ -57,17 +63,20 @@ module.exports = {
         path: "lists",
         populate: { path: "gifts" }
       })
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
       .then(user => {
         if (!user) {
           db.List.create({ name: "All Gifts" }).then(newList => {
-            db.User.create(req.body).then(newUser => {
-              return db.User.findByIdAndUpdate(
-                newUser._id, 
-                { $push: { lists: newList._id }},
-                {new: true}
-                ).populate("lists")
+            db.User.create(req.body)
+              .then(newUser => {
+                return db.User.findByIdAndUpdate(
+                  newUser._id,
+                  { $push: { lists: newList._id } },
+                  { new: true }
+                ).populate("lists");
               })
-              .then(popUser => res.json(popUser))
+              .then(popUser => res.json(popUser));
           });
         } else {
           res.json(user);
@@ -76,24 +85,44 @@ module.exports = {
   },
   // PUT url example /api/user/:currentUserId/:friendId
   addFriend: function(req, res) {
-    console.log("ADD FRIEND");
-    db.User.findById(req.params.friendId)
-      .populate("lists")
+    console.log(
+      `PUT add friend ${req.params.currentUserId} || ${req.params.friendId}`
+    );
+    db.User.findByIdAndUpdate(
+      req.params.currentUserId,
+      { $push: { friends: req.params.friendId } },
+      { new: true }
+    )
       .populate("friends")
+      .populate("lists")
       .populate({
         path: "lists",
         populate: { path: "gifts" }
       })
-      .then(dbFriend => {
-        return db.User.findOneAndUpdate(
-          { _id: req.params.currentUserId },
-          { $push: { friends: dbFriend._id } },
-          { new: true }
-        )
-          .populate("friends")
-          .populate("lists");
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
+      .then(dbUser => res.json(dbUser))
+      .catch(err => res.status(422).json(err));
+  },
+  // DELETE url example /api/user/:currentUserId/:friendId
+  removeFriend: function(req, res) {
+    console.log(
+      `DELETE remove friend ${req.params.currentUserId} || ${req.params.friendId}`
+    );
+    db.User.findByIdAndUpdate(
+      req.params.currentUserId,
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .populate("friends")
+      .populate("lists")
+      .populate({
+        path: "lists",
+        populate: { path: "gifts" }
       })
-      .then(dbFriend => res.json(dbFriend))
+      .populate({ path: "lists", populate: { path: "gifters" } })
+      .populate({ path: "lists", populate: { path: "chats" } })
+      .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   }
 };

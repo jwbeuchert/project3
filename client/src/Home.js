@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-// import userGiftList from "./pages/userGiftList";
 import { UserContext } from "./utils/UserContext";
 import NoResultCard from "./components/NoResultCard";
 import UserCard from "./components/userGiftCard";

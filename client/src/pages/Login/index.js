@@ -3,7 +3,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 import "./index.css";
 
 const Login = (props) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { loginWithRedirect } = useAuth0()
 
   return (
     <div className="d-flex justify-content-center">
