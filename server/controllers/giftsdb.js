@@ -64,7 +64,7 @@ module.exports = {
       .populate("lists")
       .then(dbGifts => res.json(dbGifts))
       .catch(err => res.status(422).json(err));
-  }
+  },
 };
 
 const removeGiftFromLists = (listid, giftid) => {
