@@ -44,6 +44,29 @@
   box-shadow: 2px 3px 5px #4f4f4f;
 }
 
+.chat-div {
+  margin: 20px;
+}
+
+.gift-section {
+  width: 100%;
+}
+
+.gift-page-flex {
+  display: flex;
+  width: 100%;
+}
+
+.gift-list-div {
+  width: 50%
+}
+
+.gift-card {
+  margin: 20px 10px;
+  border-radius: 5px;
+  box-shadow: 2px 3px 5px #4f4f4f;
+}
+
 .card-title {
   font-size: 16px;
 }

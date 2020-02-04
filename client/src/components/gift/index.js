@@ -1,16 +1,19 @@
 import React from "react";
+import "./index.css"
 
 const Gift = props => {
   return (
-    <div className="card sub-card">
-      <div className="card-body">
-        <h5 className="card-title">{props.gift.name}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">Gift Description</h6>
-        <p className="card-text">{props.gift.description}</p>
-        <h6 className="card-subtitle mb-2">{`Cost: ${props.gift.cost}`}</h6>
-        <a href={props.gift.link} className="card-link">
-          Link to gift
-        </a>
+    <div className="card gift-card">
+      <div className="gift-grid">
+        <div className="gift-title">{props.gift.name}</div>
+        <div className="gift-cost">{`Cost: ${props.gift.cost}`}</div>
+        <div className="gift-link">
+          <a href={props.gift.link}>Link to Gift</a>
+        </div>
+        <div className="gift-desc">
+          <h6 className="gift-desc-label">Gift Description</h6>
+          <p>{props.gift.description}</p>
+        </div>
       </div>
     </div>
   );
