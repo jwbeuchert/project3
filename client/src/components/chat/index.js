@@ -1,7 +1,7 @@
 import React from "react"
 
 function Chat() {
-  return (<h1>Chat</h1>)
+  return (<div className="chat-div">Chat Placeholder</div>)
 }
 
 export default Chat

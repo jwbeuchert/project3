@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { UserContext } from "../../utils/UserContext";
 import NoResultCard from "../../components/NoResultCard";
 import Gift from "../../components/gift";
-import { UserContext } from "../../utils/UserContext";
+import Chat from "../../components/chat";
 
 const GiveGift = props => {
   const { dbUser } = useContext(UserContext);
@@ -38,6 +39,12 @@ const GiveGift = props => {
     }
   }, [dbFriend]);
 
+  const handleGiftSelect = (giftId, isGifted) => {
+    axios.put(`/api/gift/${giftId}`, { isGifted: !isGifted }).then(res => {
+      axios.get(`/api/user/${dbFriend._id}`).then(res => setDbFriend(res.data));
+    });
+  };
+
   return (
     <div className="sub-page-body">
       <div className="sub-section">
@@ -46,31 +53,39 @@ const GiveGift = props => {
         </h1>
       </div>
       <div className="sub-section">
-        <h5 className="sub-header">
-          Lists of Gifts
-        </h5>
-        <div className="sub-container">
-          {dbFriend && !hasGifts ? (
+        <h5 className="sub-header">Lists of Gifts</h5>
+        {dbFriend && !hasGifts ? (
+          <div className="sub-container">
             <NoResultCard message="Your friend hasn't added any gifts." />
-          ) : viewableLists.length < 1 ? (
+          </div>
+        ) : viewableLists.length < 1 ? (
+          <div className="sub-container">
             <NoResultCard message="Your friend hasn't added you to any lists." />
-          ) : (
-            <>
-              {viewableLists.map(list => {
-                return (
-                  <div key={list._id} className="sub-section">
-                    <h5 className="sub-container">
-                      {list.name}
-                    </h5>
-                    {list.gifts.map(gift => (
-                      <Gift key={gift._id} gift={gift} />
-                    ))}
+          </div>
+        ) : (
+          <>
+            {viewableLists.map(list => {
+              return (
+                <div key={list._id} className="gift-section">
+                  <h5 className="sub-container">{list.name}</h5>
+                  <div className="gift-page-flex">
+                    <div className="gift-list-div">
+                      {list.gifts.map(gift => (
+                        <Gift
+                          key={gift._id}
+                          gift={gift}
+                          gifter={true}
+                          handleGiftSelect={handleGiftSelect}
+                        />
+                      ))}
+                    </div>
+                    <Chat />
                   </div>
-                );
-              })}
-            </>
-          )}
-        </div>
+                </div>
+              );
+            })}
+          </>
+        )}
       </div>
     </div>
   );
