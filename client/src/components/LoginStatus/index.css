@@ -1,0 +1,16 @@
+.login-status {
+    font-family: 'Arsenal', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    font-size: 18px;
+    color: white;
+}
+
+@media only screen and (max-width: 820px) {
+    .login-status {
+      display: none;
+    }
+  }

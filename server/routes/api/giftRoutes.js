@@ -1,8 +1,14 @@
 const router = require("express").Router()
 const giftController = require("../../controllers/giftsdb")
 
-router.route("/").get(giftController.findAll).post(giftController.create)
+router.route("/:listid").post(giftController.create)
 
-router.route("/:id").get(giftController.findById).put(giftController.update).delete(giftController.remove)
+router.route("/:giftid").delete(giftController.remove)
+
+
+router.route("/:giftid/:listid").put(giftController.addGiftToList)
+router.route("/:giftid").put(giftController.update)
+
+router.route("/").get(giftController.findAll)
 
 module.exports = router;

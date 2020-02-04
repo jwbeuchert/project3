@@ -1,47 +1,14 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Arsenal', sans-serif;
   background: #3d3d3d;
-}
-
-.body {
-  margin: 15px;
 }
 
 #LoggedIn {
   color: black;
 }
 
-#pic1,
-#pic2,
-#pic3 {
-  padding: 5px;
-  height: 60px;
-  width: 60px;
-  float: left;
-}
-
-button {
-  margin: 5px;
-}
-
-ul.unstyled {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav a {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-}
-
-nav a:hover {
-  background-color: #d9390d;
-}
-
-nav button {
-  margin-top: 13px;
+.uToken {
+  padding: 10px;
 }
