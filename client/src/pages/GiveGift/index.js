@@ -39,6 +39,12 @@ const GiveGift = props => {
     }
   }, [dbFriend]);
 
+  const handleGiftSelect = (giftId, isGifted) => {
+    axios.put(`/api/gift/${giftId}`, { isGifted: !isGifted }).then(res => {
+      axios.get(`/api/user/${dbFriend._id}`).then(res => setDbFriend(res.data));
+    });
+  };
+
   return (
     <div className="sub-page-body">
       <div className="sub-section">
@@ -65,7 +71,12 @@ const GiveGift = props => {
                   <div className="gift-page-flex">
                     <div className="gift-list-div">
                       {list.gifts.map(gift => (
-                        <Gift key={gift._id} gift={gift} />
+                        <Gift
+                          key={gift._id}
+                          gift={gift}
+                          gifter={true}
+                          handleGiftSelect={handleGiftSelect}
+                        />
                       ))}
                     </div>
                     <Chat />

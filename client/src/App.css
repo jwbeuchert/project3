@@ -1,5 +1,5 @@
 .btn {
-  font-family: 'Arsenal', sans-serif;
+  font-family: "Arsenal", sans-serif;
   font-size: 14px;
   padding: 5px 10px;
   margin: 5px 10px;
@@ -58,7 +58,7 @@
 }
 
 .gift-list-div {
-  width: 50%
+  width: 50%;
 }
 
 .gift-card {
@@ -98,28 +98,40 @@
   height: 18px;
 }
 
-.delete-button:hover, .fa-friend-minus-div:hover {
+.delete-button:hover,
+.fa-friend-minus-div:hover, 
+.fa-gift-return:hover {
   box-shadow: 2px 2px 5px #4f4f4f;
   background-color: #dd2623;
   color: white;
 }
 
-.fa-list-div, .fa-friend-add-div, .fa-friend-minus-div {
+.fa-list-div,
+.fa-friend-add-div,
+.fa-friend-minus-div,
+.fa-gift-select,
+.fa-gift-return {
   position: absolute;
-  bottom: 5px;
-  right: 10px;
-  width: 26px;
-  height: 26px;
+  bottom: 10px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
 }
 
 .fa-address-card {
   font-size: 18px;
 }
 
-.fa-list-div:hover, .fa-friend-add-div:hover {
+.fa-list-div:hover,
+.fa-friend-add-div:hover,
+.fa-gift-select:hover {
   box-shadow: 2px 2px 5px #4f4f4f;
   background-color: #4389cc;
   color: white;
+}
+
+.fa-gift-select, .fa-gift-return {
+  font-size: 24px
 }
 
 .fa-check-div {
