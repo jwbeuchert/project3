@@ -1,5 +1,8 @@
 import React from "react";
+<<<<<<< HEAD
 
+=======
+>>>>>>> d911a5f643220c3cf45f28ccd1fe531c482166ee
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,6 +10,10 @@ import {
   faUserPlus,
   faGifts
 } from "@fortawesome/free-solid-svg-icons";
+<<<<<<< HEAD
+=======
+
+>>>>>>> d911a5f643220c3cf45f28ccd1fe531c482166ee
 
 const UserCard = props => {
   return (
@@ -14,7 +21,10 @@ const UserCard = props => {
       <div className="card-body">
         <h5 className="card-title">{props.user.email}</h5>
       </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d911a5f643220c3cf45f28ccd1fe531c482166ee
       {props.remove && (
         <div className="font-awesome delete-button">
           <FontAwesomeIcon
