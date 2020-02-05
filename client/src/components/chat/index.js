@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import firebase from '../Firebase'
 import { UserContext } from "../../utils/UserContext";
 
-const Chat = () => {
+const Chat = (props) => {
   const [message, setMessage] = useState('')
   const {dbUser} = useContext(UserContext)
 

@@ -80,8 +80,8 @@ const GiveGift = props => {
                         />
                       ))}
                     </div>
-                    <Messages />
-                    <Chat />
+                    <Messages listId={list._id}/>
+                    <Chat listId={list._id}/>
                   </div>
                 </div>
               );
