@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import LoginStatus from "./components/LoginStatus"
 import Login from "./pages/Login"
 import "./App.css";
+import firebase from "./components/Firebase";
 
 function App() {
   const { loading, isAuthenticated, user } = useAuth0();
