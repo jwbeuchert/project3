@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import firebase from '../Firebase'
+import { UserContext } from "../../utils/UserContext";
 
 const Chat = () => {
   const [message, setMessage] = useState('')
-  const [user, setUser] = useState('')
+  const {dbUser} = useContext(UserContext)
 
   function onSubmit(e) {
     e.preventDefault()
@@ -13,11 +14,10 @@ const Chat = () => {
     .collection('messages')
     .add({
       message,
-      user
+      dbUser: dbUser._id,
     })
     .then(() => {
       setMessage('')
-      setUser('')
     })
   }
   
@@ -25,7 +25,6 @@ const Chat = () => {
     <form onSubmit ={onSubmit}>
       <div>
         <input type="text" value={message} onChange={e => setMessage(e.currentTarget.value)}/>
-        <input type="text" value={user} onChange={e => setUser(e.currentTarget.value)}/>
       </div>
       <button>Send Message</button>
     </form>

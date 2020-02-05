@@ -4,6 +4,8 @@ import { UserContext } from "./utils/UserContext";
 import NoResultCard from "./components/NoResultCard";
 import UserCard from "./components/userGiftCard";
 import axios from "axios";
+import Chat from "./components/chat"
+import Messages from "./components/Messages"
 
 const Home = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
@@ -52,6 +54,8 @@ const Home = () => {
 
   return (
     <>
+    <Messages />
+    <Chat />
       <div className="sub-page-body">
         <div className="sub-section">
           <h1 className="sub-page-header">Add To List</h1>
