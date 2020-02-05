@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../Firebase";
 
-function useMessages() {
+function RetrieveMessages(props) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
-      .collection("messages")
+      .collection(props.listId)
       .onSnapshot(snapshot => {
         const newMessages = snapshot.docs.map(doc => ({
           id: doc.id,
@@ -22,8 +22,8 @@ function useMessages() {
   return messages;
 }
 
-const Messages = () => {
-  const messageList = useMessages();
+const ChatMessages = (props) => {
+  const messageList = RetrieveMessages(props);
 
   return (
     <div className="chat-div">
@@ -41,4 +41,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default ChatMessages;
