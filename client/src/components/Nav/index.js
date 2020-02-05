@@ -12,16 +12,13 @@ const Nav = () => {
         <nav className="nav-container">
           <div className="nav-flex">
             <div className="nav-items">
-              <Link to="/home">Home</Link>
-            </div>
-            <div className="nav-items">
-              <Link to="/profile">Profile</Link>
+              <Link to="/mygifts">My Gifts</Link>
             </div>
             <div className="nav-items">
               <Link to="/lists">My Lists</Link>
             </div>
             <div className="nav-items">
-              <Link to="/friends">Friends</Link>
+              <Link to="/friends">My Friends</Link>
             </div>
           </div>
         </nav>

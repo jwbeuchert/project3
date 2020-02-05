@@ -54,15 +54,8 @@ module.exports = {
         dbGift.lists.forEach(list => {
           removeGiftFromLists(list._id, dbGift._id);
         });
-        res.JSON(dbGift);
+        res.json(dbGift);
       })
-      .catch(err => res.status(422).json(err));
-  },
-  findAll: function(req, res) {
-    console.log(`GET all gifts`);
-    db.Gift.find()
-      .populate("lists")
-      .then(dbGifts => res.json(dbGifts))
       .catch(err => res.status(422).json(err));
   },
 };

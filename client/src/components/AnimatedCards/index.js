@@ -8,6 +8,7 @@ import {
   faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
 
+// props -> cardBody, type, isChecked, item
 const AnimatedCards = props => {
   const selectedStyleColor = useSpring({
     backgroundColor: props.isChecked ? "#baf4d3" : "white"

@@ -29,29 +29,40 @@ const GiftLists = () => {
 
   const createList = (e, listname) => {
     e.preventDefault();
-    axios.post(`/api/list/${dbUser._id}`, { name: listname }).then(res => {
-      setDbUser(res.data);
+    axios.post(`/api/list/${dbUser._id}`, { name: listname }).then(resList => {
+      axios
+        .get(`/api/user/${dbUser._id}`)
+        .then(resUser => setDbUser(resUser.data));
     });
   };
 
-  const deleteList = (listid) => {
-    setListChecked(null)
+  const deleteList = listid => {
+    setListChecked(null);
     axios.delete(`/api/list/${listid}/${dbUser._id}`).then(res => {
-      console.log(JSON.stringify(res.data))
-      setDbUser(res.data);
+      axios
+        .get(`/api/user/${dbUser._id}`)
+        .then(resUser => setDbUser(resUser.data));
     });
   };
 
   const addFriendToList = friendId => {
     axios
       .put(`/api/list/add-gifter/${listChecked}/${friendId}`)
-      .then(dbList => dbList);
+      .then(dbList => {
+        axios
+          .get(`/api/user/${dbUser._id}`)
+          .then(resUser => setDbUser(resUser.data));
+      });
   };
 
   const removeFriendFromList = friendId => {
     axios
       .put(`/api/list/remove-gifter/${listChecked}/${friendId}`)
-      .then(dbList => dbList);
+      .then(dbList => {
+        axios
+          .get(`/api/user/${dbUser._id}`)
+          .then(resUser => setDbUser(resUser.data));
+      });
   };
 
   const findFriendCheckedState = id => {
