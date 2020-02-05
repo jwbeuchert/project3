@@ -11,10 +11,11 @@ const Chat = (props) => {
 
     firebase
     .firestore()
-    .collection('messages')
+    .collection(props.listId)
     .add({
       message,
       dbUser: dbUser._id,
+      dbList: props.listId
     })
     .then(() => {
       setMessage('')

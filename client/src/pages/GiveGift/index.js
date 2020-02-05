@@ -4,7 +4,7 @@ import { UserContext } from "../../utils/UserContext";
 import NoResultCard from "../../components/NoResultCard";
 import Gift from "../../components/gift";
 import Chat from "../../components/chat";
-import Messages from "../../components/Messages"
+import ChatMessages from "../../components/Messages"
 
 const GiveGift = props => {
   const { dbUser } = useContext(UserContext);
@@ -80,8 +80,8 @@ const GiveGift = props => {
                         />
                       ))}
                     </div>
-                    <Messages listId={list._id}/>
-                    <Chat listId={list._id}/>
+                    <ChatMessages listId={list._id} />
+                    <Chat listId={list._id} />
                   </div>
                 </div>
               );
