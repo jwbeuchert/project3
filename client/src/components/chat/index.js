@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import firebase from '../Firebase'
 import { UserContext } from "../../utils/UserContext";
 
-const Chat = () => {
+const Chat = (props) => {
   const [message, setMessage] = useState('')
   const {dbUser} = useContext(UserContext)
 
@@ -11,10 +11,11 @@ const Chat = () => {
 
     firebase
     .firestore()
-    .collection('messages')
+    .collection(props.listId)
     .add({
       message,
       dbUser: dbUser._id,
+      dbList: props.listId
     })
     .then(() => {
       setMessage('')
