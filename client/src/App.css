@@ -1,3 +1,7 @@
+form {
+  margin-top: 20px;
+}
+
 .btn {
   font-family: "Arsenal", sans-serif;
   font-size: 14px;
@@ -5,36 +9,53 @@
   margin: 5px 10px;
 }
 
-.sub-page-body {
+.content-grid {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-template-rows: auto auto auto;
+  column-gap: 10px;
   margin: 10px;
 }
 
-.sub-page-header {
+.page-title {
   font-family: "Crushed", cursive;
   font-size: 40px;
   border-radius: 5px;
+  grid-row: 1 / 2;
+  grid-column: 1 / 3;
+  width: 100%;
 }
 
-.sub-section {
-  margin-top: 10px;
+.content-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.content-main {
+  grid-column: 1 / 2;  
+  grid-row: 2 / 4;
+}
+
+.section {
   padding: 20px;
   background-color: #f0f0dc;
   border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%
 }
 
-.sub-container {
+.main-flex {
   display: flex;
   flex-wrap: wrap;
 }
 
 .sub-header {
+  display: block;
   font-family: "Crushed", cursive;
   font-size: 26px;
-}
-
-.sub-form {
-  background-color: #f0f0dc;
-  border-radius: 5px;
 }
 
 .sub-card {
@@ -44,53 +65,14 @@
   box-shadow: 2px 3px 5px #4f4f4f;
 }
 
-.mygift-grid {
-  display: grid;
-  grid-template-columns: 65% 35%;
-  grid-template-rows: auto;
-}
-
-.mygifts-sidebar {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.mygift-form {
-  width: 100%;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-
-.mygift-gifts {
-  grid-column: 1 / 2;  
-  grid-row: 1 / 3;
-}
-
-.mygift-lists {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .add-gift-to-list-div {
   text-align: center;
-  background-color: red;
+  background-color: #b7beff;
+  font-weight: bold;
 }
 
 .chat-div {
   margin: 20px;
-}
-
-.gift-section {
-  width: 100%;
-}
-
-.gift-page-flex {
-  display: flex;
-  width: 100%;
-}
-
-.gift-list-div {
-  width: 50%;
 }
 
 .gift-card {
@@ -99,20 +81,12 @@
   box-shadow: 2px 3px 5px #4f4f4f;
 }
 
+.gift-section{
+  width: 100%;
+}
+
 .card-title {
   font-size: 16px;
-}
-
-.form-input {
-  width: 30%;
-}
-
-.mygifts-form-input {
-  width: 90%;
-}
-
-#card1 {
-  width: 100%;
 }
 
 .font-awesome {

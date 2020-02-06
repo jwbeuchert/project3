@@ -49,7 +49,7 @@ const Gift = props => {
           >
             <FontAwesomeIcon icon={faTimes} />
           </div>
-          <div className="add-gift-to-list-div">Add Gift to Lists</div>
+          <div className="add-gift-to-list-div">Click to Add This Gift to Your Lists</div>
         </>
       )}
       {props.gifter && (

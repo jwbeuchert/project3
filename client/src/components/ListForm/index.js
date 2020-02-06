@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import "./ListForm.css"
 
-const ListForm = (props) => {
+const ListForm = props => {
   const [listname, setListname] = useState("");
 
   return (
-    <form className="sub-form">
-        <h5 className="sub-header">Create a New List</h5>
-      <div className="form-group">
+    <div>
+      <form>
         <input
           type="text"
           className="form-control form-input"
@@ -15,9 +15,17 @@ const ListForm = (props) => {
           value={listname}
           onChange={e => setListname(e.target.value)}
         />
-      <button className="btn btn-primary" onClick={e => { props.createList(e, listname); setListname("") } }>Add List</button>
-      </div>
-    </form>
+        <button
+          className="btn btn-primary"
+          onClick={e => {
+            props.createList(e, listname);
+            setListname("");
+          }}
+        >
+          Add List
+        </button>
+      </form>
+    </div>
   );
 };
 

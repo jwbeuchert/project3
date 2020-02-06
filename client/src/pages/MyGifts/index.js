@@ -5,6 +5,7 @@ import axios from "axios";
 import Gift from "../../components/gift";
 import AnimatedCards from "../../components/AnimatedCards";
 import ListCardContents from "../../components/ListCardContents";
+import GiftForm from "../../components/GiftForm";
 
 const MyGifts = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
@@ -94,136 +95,76 @@ const MyGifts = () => {
 
   return (
     <>
-      <div className="sub-page-body">
-        <div className="sub-section">
-          <h1 className="sub-page-header">Manage Your Gifts</h1>
-        </div>
-      </div>
-      <div className="mygift-grid">
-        <div className="mygifts-sidebar">
-          <div className="sub-page-body mygift-form">
-            <div className="sub-section">
-              <div
-                onClick={() => {
-                  setIsGiftAddHidden(!isGiftAddHidden);
-                }}
-              >
-                <h5 className="sub-header">Add a Gift</h5>
-              </div>
-              <div
-                style={
-                  isGiftAddHidden ? { display: "none" } : { display: "block" }
-                }
-              >
-                <h6>Enter a name of the gift</h6>
-                <form>
-                  <input
-                    className="mygifts-form-input form-control"
-                    id="name"
-                    name="name"
-                    value={giftName}
-                    onChange={e => handleChange(e)}
-                  />
-                  <h6>
-                    Copy and paste the link (address bar) of the gift you want
-                    to add
-                  </h6>
-                  <input
-                    className="mygifts-form-input form-control"
-                    id="link"
-                    name="link"
-                    value={giftLink}
-                    onChange={e => handleChange(e)}
-                  />
-
-                  <h6>Paste a description if desired</h6>
-                  <input
-                    className="mygifts-form-input form-control"
-                    id="description"
-                    name="description"
-                    value={giftDescription}
-                    onChange={e => handleChange(e)}
-                  />
-
-                  <h6>Cost of item</h6>
-                  <input
-                    className="mygifts-form-input form-control"
-                    id="cost"
-                    name="cost"
-                    value={giftCost}
-                    onChange={e => handleChange(e)}
-                  />
-                  <br></br>
-                  <button
-                    className="btn btn-primary"
-                    onClick={e => enterGiftItem(e)}
-                  >
-                    Submit
-                  </button>
-                </form>
-              </div>
-            </div>
+      <div className="content-grid">
+        <div className="section page-title">Manage Your Gifts</div>
+        <div className="content-sidebar">
+          <div className="section">
+            <div className="sub-header">Add a Gift</div>
+            <GiftForm
+              giftName={giftName}
+              giftLink={giftLink}
+              giftDescription={giftDescription}
+              giftCost={giftCost}
+              handleChange={handleChange}
+              enterGiftItem={enterGiftItem}
+            />
           </div>
         </div>
-
-        <div className="sub-page-body mygift-gifts">
-          <div className="sub-section">
-            <h5 className="sub-header">Manage Your Gifts</h5>
-            <div className="sub-container">
-              {dbUser &&
-                dbUser.lists.map(list => {
-                  return (
-                    <div key={list._id} className="gift-section">
-                      {list.name === "All Gifts" &&
-                        list.gifts.map(gift => (
-                          <>
-                            <div
-                              key={gift._id}
-                              onClick={() => selectGift(gift._id)}
-                            >
-                              <Gift gift={gift} myGift={true} />
-                            </div>
-                            <div
-                              className="sub-page-body mygift-lists"
-                              style={
-                                giftSelected === gift._id
-                                  ? { display: "block" }
-                                  : { display: "none" }
-                              }
-                            >
-                              <div className="sub-section">
-                                <div className="mygift-lists">
-                                  {dbUser &&
-                                    dbUser.lists.map(list => (
-                                      <>
-                                        {list.name !== "All Gifts" && (
-                                          <AnimatedCards
-                                            key={list._id}
-                                            item={list}
-                                            myGift={true}
-                                            handleSelect={handleSelect}
-                                            isChecked={findListsSelectedState(
-                                              list._id
-                                            )}
-                                            cardBody={
-                                              <ListCardContents
-                                                list={list}
-                                                myGift={true}
-                                              />
-                                            }
-                                          />
+        <div className="content-main section">
+          <div className="sub-header">Manage Your Gifts</div>
+          <div className="main-flex">
+            {dbUser &&
+              dbUser.lists.map(list => {
+                return (
+                  <div key={list._id} className="gift-section">
+                    {list.name === "All Gifts" &&
+                      list.gifts.map(gift => (
+                        <>
+                          <div
+                            key={gift._id}
+                            onClick={() => selectGift(gift._id)}
+                          >
+                            <Gift gift={gift} myGift={true} />
+                          </div>
+                          <div
+                            className="section main-flex"
+                            style={
+                              giftSelected === gift._id
+                                ? { display: "block" }
+                                : { display: "none" }
+                            }
+                          >Click on a list to add a gift.
+                            <div className="main-flex">
+                              {dbUser &&
+                                dbUser.lists.map(list => (
+                                  <>
+                                    {list.name !== "All Gifts" && (
+                                      <AnimatedCards
+                                        key={list._id}
+                                        item={list}
+                                        myGift={true}
+                                        handleSelect={handleSelect}
+                                        isChecked={findListsSelectedState(
+                                          list._id
                                         )}
-                                      </>
-                                    ))}
-                                </div>
-                              </div>
+                                        cardBody={
+                                          <ListCardContents
+                                            key={list._id}
+                                            list={list}
+                                            myGift={true}
+                                          />
+                                        }
+                                      />
+                                    )}
+                                  </>
+                                ))}
                             </div>
-                          </>
-                        ))}
-                    </div>
-                  );
-                })}
-            </div>
+                          </div>
+                        </>
+                      ))}
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>
