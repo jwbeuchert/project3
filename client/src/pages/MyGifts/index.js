@@ -14,6 +14,21 @@ const MyGifts = () => {
   const [giftCost, setGiftCost] = useState("");
   const [isGiftAddHidden, setIsGiftAddHidden] = useState(false);
   const [giftSelected, setGiftSelected] = useState(null);
+  const [listsSelected, setListsSelected] = useState([]);
+
+  useEffect(() => {
+    if (giftSelected) {
+      axios.get(`/api/gift/${giftSelected}`).then(dbGift => {
+        let newArray = [];
+        dbGift.data.lists.forEach(list => {
+          newArray.push(list);
+        });
+        setListsSelected(newArray);
+      });
+    } else {
+      setListsSelected([]);
+    }
+  }, [giftSelected, dbUser]);
 
   const handleChange = e => {
     if (e.target.name === "name") {
@@ -31,14 +46,12 @@ const MyGifts = () => {
     e.preventDefault();
     let allGift = dbUser.lists.filter(el => el.name === "All Gifts");
     let allGiftId = allGift[0]._id;
-    console.log(allGiftId);
     let gift = {
       name: giftName,
       description: giftDescription,
       link: giftLink,
       cost: giftCost
     };
-    console.log(gift);
     setGiftName("");
     setGiftLink("");
     setGiftDescription("");
@@ -46,7 +59,6 @@ const MyGifts = () => {
 
     axios.post(`/api/gift/${allGiftId}`, gift).then(res => {
       axios.get(`/api/user/${dbUser._id}`).then(res => {
-        console.log(res.data);
         setDbUser(res.data);
       });
     });
@@ -58,7 +70,26 @@ const MyGifts = () => {
     } else {
       setGiftSelected(giftId);
     }
-    console.log(`giftId ${giftId} || ${giftSelected}`);
+  };
+
+  const findListsSelectedState = id => {
+    return listsSelected.includes(id);
+  };
+
+  const handleSelect = listId => {
+    if (!findListsSelectedState(listId)) {
+      axios.put(`/api/gift/${giftSelected}/${listId}`).then(resList => {
+        axios.get(`/api/user/${dbUser._id}`).then(resUser => {
+          setDbUser(resUser.data);
+        });
+      });
+    } else {
+      axios.delete(`/api/gift/${giftSelected}/${listId}`).then(resList => {
+        axios.get(`/api/user/${dbUser._id}`).then(resUser => {
+          setDbUser(resUser.data);
+        });
+      });
+    }
   };
 
   return (
@@ -74,7 +105,6 @@ const MyGifts = () => {
             <div className="sub-section">
               <div
                 onClick={() => {
-                  console.log(`HIDE/SHOW ${isGiftAddHidden}`);
                   setIsGiftAddHidden(!isGiftAddHidden);
                 }}
               >
@@ -144,39 +174,52 @@ const MyGifts = () => {
                 dbUser.lists.map(list => {
                   return (
                     <div key={list._id} className="gift-section">
-                      <h5 className="sub-container">{list.name}</h5>
-                      {list.gifts.map(gift => (
-                        <>
-                          <div
-                            key={gift._id}
-                            onClick={() => selectGift(gift._id)}
-                          >
-                            <Gift gift={gift} myGift={true} />
-                          </div>
-                          <div
-                            className="sub-page-body mygift-lists"
-                            style={
-                              giftSelected === gift._id
-                                ? { display: "block" }
-                                : { display: "none" }
-                            }
-                          >
-                            <div className="sub-section">
-                              <div className="mygift-lists">
-                                {dbUser &&
-                                  dbUser.lists.map(list => (
-                                    <AnimatedCards
-                                      item={list}
-                                      cardBody={
-                                        <ListCardContents list={list} />
-                                      }
-                                    />
-                                  ))}
+                      {list.name === "All Gifts" &&
+                        list.gifts.map(gift => (
+                          <>
+                            <div
+                              key={gift._id}
+                              onClick={() => selectGift(gift._id)}
+                            >
+                              <Gift gift={gift} myGift={true} />
+                            </div>
+                            <div
+                              className="sub-page-body mygift-lists"
+                              style={
+                                giftSelected === gift._id
+                                  ? { display: "block" }
+                                  : { display: "none" }
+                              }
+                            >
+                              <div className="sub-section">
+                                <div className="mygift-lists">
+                                  {dbUser &&
+                                    dbUser.lists.map(list => (
+                                      <>
+                                        {list.name !== "All Gifts" && (
+                                          <AnimatedCards
+                                            key={list._id}
+                                            item={list}
+                                            myGift={true}
+                                            handleSelect={handleSelect}
+                                            isChecked={findListsSelectedState(
+                                              list._id
+                                            )}
+                                            cardBody={
+                                              <ListCardContents
+                                                list={list}
+                                                myGift={true}
+                                              />
+                                            }
+                                          />
+                                        )}
+                                      </>
+                                    ))}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </>
-                      ))}
+                          </>
+                        ))}
                     </div>
                   );
                 })}

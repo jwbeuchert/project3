@@ -39,7 +39,13 @@ const AnimatedCards = props => {
           <FontAwesomeIcon icon={!props.isChecked ? faUserPlus : faUserMinus} />
         </div>
       )}
-      {props.cardBody}
+      {props.myGift ? (
+        <div onClick={() => props.handleSelect(props.item._id)}>
+          {props.cardBody}
+        </div>
+      ) : (
+        <>{props.cardBody}</>
+      )}
       <a.div className="font-awesome fa-check-div" style={fade}>
         <FontAwesomeIcon icon={faCheckSquare} />
       </a.div>

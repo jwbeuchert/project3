@@ -9,7 +9,7 @@ const ListCardContents = props => {
       <div className="card-body">
         <h5 className="card-title">{props.list.name}</h5>
       </div>
-      {props.list.name === "All Gifts" ? (
+      {props.list.name === "All Gifts" || props.myGift ? (
         <></>
       ) : (
         <div className="font-awesome delete-button">
