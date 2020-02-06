@@ -14,7 +14,7 @@ const Chat = (props) => {
     .collection(props.listId)
     .add({
       message,
-      dbUser: dbUser._id,
+      dbUser: dbUser.email,
       dbList: props.listId
     })
     .then(() => {

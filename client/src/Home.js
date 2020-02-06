@@ -4,6 +4,8 @@ import { UserContext } from "./utils/UserContext";
 import NoResultCard from "./components/NoResultCard";
 import UserCard from "./components/userGiftCard";
 import axios from "axios";
+import ChatMessages from "./components/Messages";
+import Chat from "./components/chat";
 
 const Home = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
