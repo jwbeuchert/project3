@@ -1,5 +1,8 @@
 import React from "react";
 import { useAuth0 } from "./react-auth0-spa";
+import Chat from "./components/chat";
+import ChatMessages from "./components/Messages";
+
 
 const Profile = () => {
   const { loading, user } = useAuth0();
