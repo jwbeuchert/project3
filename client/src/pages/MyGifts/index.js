@@ -132,7 +132,8 @@ const MyGifts = () => {
                                 ? { display: "block" }
                                 : { display: "none" }
                             }
-                          >Click on a list to add a gift.
+                          >
+                            Click on a list to add a gift.
                             <div className="main-flex">
                               {dbUser &&
                                 dbUser.lists.map(list => (

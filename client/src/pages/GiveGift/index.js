@@ -67,6 +67,7 @@ const GiveGift = props => {
           <>
             {viewableLists.map(list => {
               return (
+                <>
                 <div key={list._id} className="gift-section">
                   <div className="list-header">{list.name}</div>
                   <div className="gift-page-flex">
@@ -80,10 +81,11 @@ const GiveGift = props => {
                         />
                       ))}
                     </div>
-                    <ChatMessages listId={list._id} />
-                    <Chat listId={list._id} />
                   </div>
+                  <ChatMessages listId={list._id} />
+                  <Chat listId={list._id} />  
                 </div>
+                </>
               );
             })}
           </>
