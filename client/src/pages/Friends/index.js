@@ -9,24 +9,24 @@ const Friends = () => {
   const { dbUser, setDbUser } = useContext(UserContext);
 
   const removeFriend = friendId => {
-    axios.delete(`/api/user/${dbUser._id}/${friendId}`)
-      .then(dbUser => {
-        console.log(dbUser)
-        setDbUser(dbUser.data)
-      })
+    axios.delete(`/api/user/${dbUser._id}/${friendId}`).then(dbUser => {
+      console.log(dbUser);
+      setDbUser(dbUser.data);
+    });
   };
 
   return (
-    <div className="sub-page-body">
-      <div className="sub-section">
-        <h1 className="sub-page-header">Manage Friends</h1>
+    <div className="content-grid">
+      <div className="section page-title">Manage Friends</div>
+      <div className="content-sidebar">
+        <div className="section">
+          <div className="sub-header">Add a Friend</div>
+          <FriendForm />
+        </div>
       </div>
-      <div className="sub-section">
-        <FriendForm />
-      </div>
-      <div className="sub-section">
-        <h5 className="sub-header">List of Friends</h5>
-        <div className="sub-container">
+      <div className="section">
+        <div className="sub-header">List of Friends</div>
+        <div className="content-main main-flex">
           {dbUser && dbUser.friends.length > 0 ? (
             dbUser.friends.map(friend => {
               return (

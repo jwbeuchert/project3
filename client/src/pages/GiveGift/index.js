@@ -4,7 +4,9 @@ import { UserContext } from "../../utils/UserContext";
 import NoResultCard from "../../components/NoResultCard";
 import Gift from "../../components/gift";
 import Chat from "../../components/chat";
-import ChatMessages from "../../components/Messages"
+import ChatMessages from "../../components/Messages";
+
+import "./GiveGift.css"
 
 const GiveGift = props => {
   const { dbUser } = useContext(UserContext);
@@ -47,20 +49,18 @@ const GiveGift = props => {
   };
 
   return (
-    <div className="sub-page-body">
-      <div className="sub-section">
-        <h1 className="sub-page-header">
-          Gifts - {dbFriend && dbFriend.email}
-        </h1>
+    <div className="content-grid">
+      <div className="section page-title">
+        Gifts - {dbFriend && dbFriend.email}
       </div>
-      <div className="sub-section">
-        <h5 className="sub-header">Lists of Gifts</h5>
+      <div className="section content-main">
+        <div className="sub-header">Lists of Gifts</div>
         {dbFriend && !hasGifts ? (
-          <div className="sub-container">
+          <div className="main-flex">
             <NoResultCard message="Your friend hasn't added any gifts." />
           </div>
         ) : viewableLists.length < 1 ? (
-          <div className="sub-container">
+          <div className="main-flex">
             <NoResultCard message="Your friend hasn't added you to any lists." />
           </div>
         ) : (
@@ -68,7 +68,7 @@ const GiveGift = props => {
             {viewableLists.map(list => {
               return (
                 <div key={list._id} className="gift-section">
-                  <h5 className="sub-container">{list.name}</h5>
+                  <div className="list-header">{list.name}</div>
                   <div className="gift-page-flex">
                     <div className="gift-list-div">
                       {list.gifts.map(gift => (

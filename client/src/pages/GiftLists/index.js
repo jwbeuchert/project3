@@ -87,55 +87,58 @@ const GiftLists = () => {
   };
 
   return (
-    <div className="sub-page-body">
-      <div className="sub-section">
-        <h1 className="sub-page-header">My Lists</h1>
-      </div>
-      <div className="sub-section">
-        <ListForm createList={createList} />
-      </div>
-      <div className="sub-section">
-        <h5 className="sub-header">List of Gift Lists</h5>
-        <div className="sub-container">
-          {dbUser && dbUser.lists.length > 0 ? (
-            dbUser.lists.map(list => (
-              <AnimatedCards
-                key={list._id}
-                item={list}
-                type={"list"}
-                handleClick={handleClick}
-                isChecked={listChecked === list._id ? true : false}
-                cardBody={
-                  <ListCardContents list={list} deleteList={deleteList} />
-                }
-              />
-            ))
-          ) : (
-            <NoResultCard message={"You have no lists."} />
-          )}
+    <div className="content-grid">
+      <div className="section page-title">My Lists</div>
+      <div className="content-sidebar">
+        <div className="section">
+          <div className="sub-header">Create a New List</div>
+          <ListForm createList={createList} />
         </div>
       </div>
-      {listChecked && (
-        <div className="sub-section">
-          <h5 className="sub-header">Add Friends to Selected Gift List</h5>
-          <div className="sub-container">
-            {dbUser && dbUser.friends.length > 0 ? (
-              dbUser.friends.map(friend => (
+      <div className="content-main">
+        <div className="section">
+          <div className="sub-header">List of Gift Lists</div>
+          <div className="main-flex">
+            {dbUser && dbUser.lists.length > 0 ? (
+              dbUser.lists.map(list => (
                 <AnimatedCards
-                  key={friend._id}
-                  item={friend}
-                  type={"friend"}
+                  key={list._id}
+                  item={list}
+                  type={"list"}
                   handleClick={handleClick}
-                  isChecked={findFriendCheckedState(friend._id)}
-                  cardBody={<FriendCardContents user={friend} />}
+                  isChecked={listChecked === list._id ? true : false}
+                  cardBody={
+                    <ListCardContents list={list} deleteList={deleteList} />
+                  }
                 />
               ))
             ) : (
-              <NoResultCard message={"You haven't added any friends."} />
+              <NoResultCard message={"You have no lists."} />
             )}
           </div>
         </div>
-      )}
+        {listChecked && (
+          <div className="section">
+            <h5 className="sub-header">Add Friends to Selected Gift List</h5>
+            <div className="main-flex">
+              {dbUser && dbUser.friends.length > 0 ? (
+                dbUser.friends.map(friend => (
+                  <AnimatedCards
+                    key={friend._id}
+                    item={friend}
+                    type={"friend"}
+                    handleClick={handleClick}
+                    isChecked={findFriendCheckedState(friend._id)}
+                    cardBody={<FriendCardContents user={friend} />}
+                  />
+                ))
+              ) : (
+                <NoResultCard message={"You haven't added any friends."} />
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
