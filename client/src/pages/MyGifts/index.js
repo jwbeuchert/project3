@@ -13,7 +13,6 @@ const MyGifts = () => {
   const [giftDescription, setGiftDescription] = useState("");
   const [giftLink, setGiftLink] = useState("");
   const [giftCost, setGiftCost] = useState("");
-  const [isGiftAddHidden, setIsGiftAddHidden] = useState(false);
   const [giftSelected, setGiftSelected] = useState(null);
   const [listsSelected, setListsSelected] = useState([]);
 
