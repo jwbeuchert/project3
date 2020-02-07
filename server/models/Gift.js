@@ -5,7 +5,7 @@ const giftSchema = new Schema({
   name: { type: String, required: true },
   link: { type: String, required: true },
   description: { type: String },
-  cost: { type: Number },
+  cost: { type: String },
   isGifted: { type: Boolean, default: false },
   dateAdded: { type: Date, default: Date.now },
   lists: [{ type: Schema.Types.ObjectId, ref: 'List'}]

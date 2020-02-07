@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useAuth0 } from "./react-auth0-spa";
 import axios from "axios";
 import { UserContext } from "./utils/UserContext";
-import Home from "./Home";
-import Profile from "./Profile";
+import MyGifts from "./pages/MyGifts";
 import GiftLists from "./pages/GiftLists";
 import Friends from "./pages/Friends";
 import GiveGift from "./pages/GiveGift";
@@ -13,7 +12,6 @@ import Header from "./components/Header";
 import LoginStatus from "./components/LoginStatus"
 import Login from "./pages/Login"
 import "./App.css";
-import firebase from "./components/Firebase";
 
 function App() {
   const { loading, isAuthenticated, user } = useAuth0();
@@ -47,9 +45,8 @@ function App() {
                     <Login />
           ) : (
             <>
-              <Route path="/" exact component={Home} />
-              <Route path="/home" exact component={Home} />
-              <Route path="/profile" exact component={Profile} />
+              <Route path="/" exact component={MyGifts} />
+              <Route path="/mygifts" exact component={MyGifts} />
               <Route path="/friends" exact component={Friends} />
               <Route path="/lists" exact component={GiftLists} />
               <Route path="/give" exact component={GiveGift} />
