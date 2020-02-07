@@ -15,13 +15,16 @@
   margin: 0 25px;
 }
 .nav-items a {
-  color: white;
+  color: #b5b5b5;
   text-decoration: none;
 }
 
-.nav-items a:hover {
-  background-color: #d9390d;
+.nav-items>a.active {
   color: white;
+}
+
+.nav-items a:hover {
+  color: #b5b5b5;
 }
 
 @media only screen and (max-width: 400px) {
