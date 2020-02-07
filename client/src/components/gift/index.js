@@ -28,7 +28,7 @@ const Gift = props => {
   };
 
   return (
-    <a.div className="card gift-card" style={isGiftedStyle}>
+    <a.div className="gift-card" style={isGiftedStyle}>
       <div className="gift-grid">
         <div className="gift-title">{props.gift.name}</div>
         <div className="gift-cost">{`Cost: ${props.gift.cost}`}</div>
