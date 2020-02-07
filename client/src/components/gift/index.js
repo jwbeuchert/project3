@@ -19,7 +19,8 @@ const Gift = props => {
     opacity: props.gift.isGifted ? 0.6 : 1
   });
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation();
     Axios.delete(`/api/gift/${props.gift._id}`).then(res => {
       console.log(res.data);
       Axios.get(`/api/user/${dbUser._id}`).then(res => setDbUser(res.data));
@@ -45,7 +46,7 @@ const Gift = props => {
         <>
           <div
             className="font-awesome delete-button"
-            onClick={() => handleDelete()}
+            onClick={(e) => handleDelete(e)}
           >
             <FontAwesomeIcon icon={faTimes} />
           </div>
