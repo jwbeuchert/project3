@@ -5,7 +5,6 @@ import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config.js";
 import history from "./utils/history";
 import "./index.css";
-import Firebase, { FirebaseContext } from "./components/Firebase";
 
 const onRedirectCallback = appState => {
   history.push(

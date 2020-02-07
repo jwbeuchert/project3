@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import firebase from "../Firebase";
 import "./index.css";
 
@@ -24,13 +24,23 @@ function RetrieveMessages(props) {
   return messages;
 }
 
-const ChatMessages = props => {
+const ChatMessages = (props) => {
   const messageList = RetrieveMessages(props);
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+  };
+  
+  useEffect(() => {
+    if (messagesEndRef.current !== null) {
+      scrollToBottom()
+    }
+}, [messageList]);
 
   return (
-    <div className="card chat-div">
+    <div className="card chat-div" ref={messagesEndRef}>
       <ul className="card-body">
-        {messageList.map(message => (
+        {messageList && messageList.map(message => (
           <li key={message.id}>
             <div className="message">
               <code className="user">{message.dbUser}: </code>
