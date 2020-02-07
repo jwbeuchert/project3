@@ -32,7 +32,7 @@ const ChatMessages = (props) => {
           <li key={message.id}>
             <div className="message">
               {message.message}
-              <code className="user">{message.user}</code>
+              <code className="user">{message.dbUser}</code>
             </div>
           </li>
         ))}
