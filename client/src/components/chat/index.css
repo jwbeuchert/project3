@@ -14,4 +14,9 @@
 
 .chat-form {
     margin-top: 0px;
+    height: 100%;
+}
+
+.text-area {
+    height: 100%;   
 }

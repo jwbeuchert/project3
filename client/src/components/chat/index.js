@@ -30,7 +30,7 @@ const Chat = props => {
         <div className="input-group message-form">
           <input
             type="text"
-            className="form-control form-input"
+            className="form-control form-input text-area"
             placeholder="Message"
             value={message}
             onChange={e => setMessage(e.currentTarget.value)}
