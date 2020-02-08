@@ -1,7 +1,7 @@
 import React from "react";
 import "./GiftForm.css"
 
-export const GiftForm = ({
+const GiftForm = ({
   giftName,
   giftLink,
   giftDescription,
