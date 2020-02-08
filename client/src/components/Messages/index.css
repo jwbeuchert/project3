@@ -4,12 +4,28 @@ ul {
   padding: 0;
 }
 
+
 .message {
     margin: 5px;
+    font-size: smaller;
+}
+
+.chat-messages {
+    margin-top: 40px;
+}
+
+.message-box {
+    margin-left: 10px;
+    margin-right: 0px;
+    width: 65%;
 }
 
 .chat-div {
-    max-height: 208px;
+    max-height: 223px;
+    min-height: 223px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     overflow: auto;
 }
 

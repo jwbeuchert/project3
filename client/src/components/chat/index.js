@@ -25,18 +25,22 @@ const Chat = props => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        <input
-          type="text"
-          className="form-control form-input"
-          placeholder="Message"
-          value={message}
-          onChange={e => setMessage(e.currentTarget.value)}
-        />
-      </div>
-      <button className="test btn btn-primary">Send Message</button>
-    </form>
+    <div>
+      <form onSubmit={onSubmit} className="chat-form">
+        <div className="input-group message-form">
+          <input
+            type="text"
+            className="form-control form-input"
+            placeholder="Message"
+            value={message}
+            onChange={e => setMessage(e.currentTarget.value)}
+          />
+          <div className="input-group-append">
+            <button className="message-btn btn-primary" type="button">Send Message</button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
