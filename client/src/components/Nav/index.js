@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "../../react-auth0-spa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./index.css";
 
 const Nav = () => {
@@ -12,16 +12,13 @@ const Nav = () => {
         <nav className="nav-container">
           <div className="nav-flex">
             <div className="nav-items">
-              <Link to="/home">Home</Link>
+              <NavLink to="/mygifts" activeClassName="active">My Gifts</NavLink>
             </div>
             <div className="nav-items">
-              <Link to="/profile">Profile</Link>
+              <NavLink to="/lists" activeClassName="active">My Lists</NavLink>
             </div>
             <div className="nav-items">
-              <Link to="/lists">My Lists</Link>
-            </div>
-            <div className="nav-items">
-              <Link to="/friends">Friends</Link>
+              <NavLink to="/friends" activeClassName="active">My Friends</NavLink>
             </div>
           </div>
         </nav>
@@ -29,5 +26,4 @@ const Nav = () => {
     </div>
   );
 };
-// test
 export default Nav;

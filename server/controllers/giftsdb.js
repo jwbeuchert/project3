@@ -36,6 +36,23 @@ module.exports = {
       })
       .catch(err => res.status(422).json(err));
   },
+  // DELETE url example: /api/gift/:giftid/:listid
+  removeGiftFromList: function(req, res) {
+    console.log(
+      `DELETE remove gift from list || gift ${req.params.giftid} || list ${req.params.listid}`
+    );
+    db.Gift.findById(req.params.giftid)
+      .then(dbGift => {
+        dbGift.lists.pull(req.params.listid);
+        dbGift.save();
+        db.List.findById(req.params.listid).then(dbList => {
+          dbList.gifts.pull(req.params.giftid);
+          dbList.save();
+          res.json(dbList);
+        });
+      })
+      .catch(err => res.status(422).json(err));
+  },
   // PUT url example: /api/gift/:giftid
   update: function(req, res) {
     console.log(`UPDATE gift ${req.params.giftid}`);
@@ -54,16 +71,14 @@ module.exports = {
         dbGift.lists.forEach(list => {
           removeGiftFromLists(list._id, dbGift._id);
         });
-        res.JSON(dbGift);
+        res.json(dbGift);
       })
       .catch(err => res.status(422).json(err));
   },
-  findAll: function(req, res) {
-    console.log(`GET all gifts`);
-    db.Gift.find()
-      .populate("lists")
-      .then(dbGifts => res.json(dbGifts))
-      .catch(err => res.status(422).json(err));
+  // GET url example: /api/gift/:giftid
+  findOne: function(req, res) {
+    console.log(`GET one gift ${req.params.giftid}`)
+    db.Gift.findById(req.params.giftid).then(dbGift => res.json(dbGift))
   }
 };
 

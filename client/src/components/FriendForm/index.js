@@ -4,6 +4,8 @@ import { UserContext } from "../../utils/UserContext";
 import UserCard from "../UserCard";
 import NoResultCard from "../NoResultCard";
 
+import "./FriendForm.css"
+
 const FriendForm = () => {
   const [emailSearch, setEmailSearch] = useState("");
   const [friendReturned, setFriendReturned] = useState(null);
@@ -59,9 +61,9 @@ const FriendForm = () => {
   };
 
   return (
-    <div className="sub-form">
+    <div>
       <form>
-        <h5 className="sub-header">Search for a Friend by Email</h5>
+        <label forhtml="email-input">Search for a friend by email</label>
         <div className="form-group">
           <input
             type="email"
