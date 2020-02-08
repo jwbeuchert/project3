@@ -49,11 +49,11 @@ const GiveGift = props => {
   };
 
   return (
-    <div className="content-grid">
+    <div className="content-give">
       <div className="section page-title">
         Gifts - {dbFriend && dbFriend.email}
       </div>
-      <div className="section content-main">
+      <div className="section">
         <div className="sub-header">Lists of Gifts</div>
         {dbFriend && !hasGifts ? (
           <div className="main-flex">
@@ -64,10 +64,11 @@ const GiveGift = props => {
             <NoResultCard message="Your friend hasn't added you to any lists." />
           </div>
         ) : (
-          <>
+          <div className="give-flex">
             {viewableLists.map(list => {
               return (
-                <div key={list._id} className="gift-section">
+                <>
+                <div key={list._id} className="give-section">
                   <div className="list-header">{list.name}</div>
                   <div className="gift-page-flex">
                     <div className="gift-list-div">
@@ -80,13 +81,16 @@ const GiveGift = props => {
                         />
                       ))}
                     </div>
-                    <ChatMessages listId={list._id} />
-                    <Chat listId={list._id} />
                   </div>
                 </div>
+                <div className="chat-messages">
+                  <ChatMessages listId={list._id} />
+                  <Chat listId={list._id} />  
+                </div>
+                </>
               );
             })}
-          </>
+          </div>
         )}
       </div>
     </div>

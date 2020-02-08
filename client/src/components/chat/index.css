@@ -1,0 +1,18 @@
+.message-btn {
+    margin: 0;
+    font-size: 14px;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+}
+
+.message-form {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 5px;
+    width: 95%;
+}
+
+.chat-form {
+    margin-top: 0px;
+    height: 100%;
+}

@@ -1,3 +1,20 @@
+.content-give {
+  margin: 10px;
+}
+
+.give-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.give-section {
+    width: 60%;
+}
+
+.chat-messages {
+    width: 40%;
+}
+
 .list-header {
     font-size: 20px;
     margin-top: 10px;
