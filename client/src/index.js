@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { Auth0Provider } from "./react-auth0-spa"
+import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config.js";
-import history from "./utils/history"
+import history from "./utils/history";
 import "./index.css";
 
 const onRedirectCallback = appState => {
   history.push(
     appState && appState.targetUrl
-    ? appState.targetUrl
-    : window.location.pathname
-  )
-}
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
 
 ReactDOM.render(
   <Auth0Provider
@@ -20,8 +20,8 @@ ReactDOM.render(
     client_id={config.clientId}
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
-    >
-  <App />
+  >
+    <App />
   </Auth0Provider>,
   document.getElementById("root")
 );

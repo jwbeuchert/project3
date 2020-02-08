@@ -4,7 +4,9 @@ import { UserContext } from "../../utils/UserContext";
 import UserCard from "../UserCard";
 import NoResultCard from "../NoResultCard";
 
-const GiveForm = () => {
+import "./FriendForm.css"
+
+const FriendForm = () => {
   const [emailSearch, setEmailSearch] = useState("");
   const [friendReturned, setFriendReturned] = useState(null);
   const { dbUser, setDbUser } = useContext(UserContext);
@@ -47,10 +49,9 @@ const GiveForm = () => {
       });
   };
 
-  const addFriend = e => {
-    e.preventDefault();
+  const addFriend = () => {
     axios
-      .put("/api/user/" + dbUser._id + "/" + friendReturned._id)
+      .put(`/api/user/${dbUser._id}/${friendReturned._id}`)
       .then(dbuser => {
         console.log(dbuser.data);
         setFriendReturned(null);
@@ -60,9 +61,9 @@ const GiveForm = () => {
   };
 
   return (
-    <div className="sub-form">
+    <div>
       <form>
-        <h5 className="sub-header">Search for a Friend by Email</h5>
+        <label forhtml="email-input">Search for a friend by email</label>
         <div className="form-group">
           <input
             type="email"
@@ -88,14 +89,11 @@ const GiveForm = () => {
         <NoResultCard message="Email not found!" />
       ) : friendReturned ? (
         <>
-          <UserCard user={friendReturned} />
-          <button className="btn btn-success" onClick={e => addFriend(e)}>
-            Add Friend
-          </button>
+          <UserCard user={friendReturned} addFriend={addFriend} add={true} />
         </>
       ) : null}
     </div>
   );
 };
 
-export default GiveForm;
+export default FriendForm;
