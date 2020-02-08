@@ -39,16 +39,16 @@ const ChatMessages = props => {
 
   return (
     <div className="card chat-div" ref={messagesEndRef}>
-      <ul className="card-body">
+      <div className="card-body">
         {messageList.map(message => (
-          <li key={message.id}>
+          <div key={message.id}>
             <div className="message">
               <code className="user">{message.dbUser}: </code>
               {message.message}
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
