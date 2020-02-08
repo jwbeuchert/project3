@@ -9,7 +9,7 @@ const Chat = props => {
 
   function onSubmit(e) {
     e.preventDefault();
-
+    
     firebase
       .firestore()
       .collection(props.listId)
@@ -34,6 +34,7 @@ const Chat = props => {
             placeholder="Message"
             value={message}
             onChange={e => setMessage(e.currentTarget.value)}
+            required
           />
           <div className="input-group-append">
             <button className="message-btn btn-primary">Send Message</button>
