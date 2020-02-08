@@ -52,6 +52,10 @@ const MyGifts = () => {
       link: giftLink,
       cost: giftCost
     };
+    if (!/^https?:\/\//.test(giftLink)) {
+      gift.link = `https://${giftLink}`;
+    }
+
     setGiftName("");
     setGiftLink("");
     setGiftDescription("");
