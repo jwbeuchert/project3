@@ -4,6 +4,9 @@ ul {
   padding: 0;
 }
 
+form {
+    margin-top: 0px !important; 
+}
 
 .message {
     margin: 5px;
@@ -31,4 +34,5 @@ ul {
 
 .user {
     color: rgb(2, 32, 92);
+    font-weight: bold;
 }

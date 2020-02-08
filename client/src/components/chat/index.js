@@ -36,7 +36,7 @@ const Chat = props => {
             onChange={e => setMessage(e.currentTarget.value)}
           />
           <div className="input-group-append">
-            <button className="message-btn btn-primary" type="button">Send Message</button>
+            <button className="message-btn btn-primary">Send Message</button>
           </div>
         </div>
       </form>

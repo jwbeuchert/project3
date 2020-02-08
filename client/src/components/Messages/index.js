@@ -24,30 +24,33 @@ function RetrieveMessages(props) {
   return messages;
 }
 
-const ChatMessages = (props) => {
+const ChatMessages = props => {
   const messageList = RetrieveMessages(props);
+  let userName = messageList.dbUser;
+  console.log(userName);
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   };
-  
+
   useEffect(() => {
     if (messagesEndRef.current !== null) {
-      scrollToBottom()
+      scrollToBottom();
     }
-}, [messageList]);
+  }, [messageList]);
 
   return (
     <div className="card chat-div" ref={messagesEndRef}>
       <ul className="card-body">
-        {messageList && messageList.map(message => (
-          <li key={message.id}>
-            <div className="message">
-              <code className="user">{message.dbUser}: </code>
-              {message.message}
-            </div>
-          </li>
-        ))}
+        {messageList &&
+          messageList.map(message => (
+            <li key={message.id}>
+              <div className="message">
+                <code className="user">{message.dbUser}: </code>
+                {message.message}
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   );
