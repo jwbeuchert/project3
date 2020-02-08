@@ -26,8 +26,6 @@ function RetrieveMessages(props) {
 
 const ChatMessages = props => {
   const messageList = RetrieveMessages(props);
-  let userName = messageList.dbUser;
-  console.log(userName);
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -42,15 +40,14 @@ const ChatMessages = props => {
   return (
     <div className="card chat-div" ref={messagesEndRef}>
       <ul className="card-body">
-        {messageList &&
-          messageList.map(message => (
-            <li key={message.id}>
-              <div className="message">
-                <code className="user">{message.dbUser}: </code>
-                {message.message}
-              </div>
-            </li>
-          ))}
+        {messageList.map(message => (
+          <li key={message.id}>
+            <div className="message">
+              <code className="user">{message.dbUser}: </code>
+              {message.message}
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );
